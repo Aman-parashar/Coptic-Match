@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProText-Regular.ttf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileQuestionCollectionCell" id="gTV-IL-0wX" customClass="ProfileQuestionCollectionCell" customModule="HalalDating" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9k-7A-gCb">
+                        <rect key="frame" x="0.0" y="2.5" width="150" height="55"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_pray" translatesAutoresizingMaskIntoConstraints="NO" id="6YX-cS-mBT">
+                                <rect key="frame" x="10" y="17.5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="b5X-6f-pDf"/>
+                                    <constraint firstAttribute="height" constant="20" id="eM7-Wq-6nJ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lru-5W-JC5">
+                                <rect key="frame" x="40" y="5" width="100" height="45"/>
+                                <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="6YX-cS-mBT" firstAttribute="leading" secondItem="X9k-7A-gCb" secondAttribute="leading" constant="10" id="AN4-DP-Znk"/>
+                            <constraint firstItem="lru-5W-JC5" firstAttribute="leading" secondItem="6YX-cS-mBT" secondAttribute="trailing" constant="10" id="B0W-Ir-STL"/>
+                            <constraint firstAttribute="bottom" secondItem="lru-5W-JC5" secondAttribute="bottom" constant="5" id="O1E-5R-9B5"/>
+                            <constraint firstItem="lru-5W-JC5" firstAttribute="top" secondItem="X9k-7A-gCb" secondAttribute="top" constant="5" id="PWf-ic-eyS"/>
+                            <constraint firstAttribute="trailing" secondItem="lru-5W-JC5" secondAttribute="trailing" constant="10" id="Waz-s4-fQj"/>
+                            <constraint firstItem="6YX-cS-mBT" firstAttribute="centerY" secondItem="X9k-7A-gCb" secondAttribute="centerY" id="ae8-40-tqz"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="cornerRadius" value="15"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="X9k-7A-gCb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8KG-aU-LFj"/>
+                <constraint firstItem="X9k-7A-gCb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2.5" id="TEL-Bu-tYd"/>
+                <constraint firstAttribute="bottom" secondItem="X9k-7A-gCb" secondAttribute="bottom" constant="2.5" id="iqW-Q4-81D"/>
+                <constraint firstAttribute="trailing" secondItem="X9k-7A-gCb" secondAttribute="trailing" id="vtM-9p-A2d"/>
+            </constraints>
+            <connections>
+                <outlet property="ic_cat" destination="6YX-cS-mBT" id="dSr-dO-0hN"/>
+                <outlet property="lblTitl" destination="lru-5W-JC5" id="BM3-09-Dvo"/>
+                <outlet property="viewbg" destination="X9k-7A-gCb" id="IvX-xd-cDX"/>
+            </connections>
+            <point key="canvasLocation" x="206" y="-25"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_pray" width="107" height="128"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

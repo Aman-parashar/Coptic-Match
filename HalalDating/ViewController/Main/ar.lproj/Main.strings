@@ -1,0 +1,123 @@
+
+/* Class = "UILabel"; text = "Terms"; ObjectID = "2do-wa-OdA"; */
+"2do-wa-OdA.text" = "Terms";
+
+/* Class = "UILabel"; text = "Find your partner faster with premium membership"; ObjectID = "3l8-GF-sES"; */
+"3l8-GF-sES.text" = "Find your partner faster with premium membership";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4oi-7L-4jr"; */
+"4oi-7L-4jr.text" = "Label";
+
+/* Class = "UILabel"; text = "Terms"; ObjectID = "6VQ-Ev-ie9"; */
+"6VQ-Ev-ie9.text" = "Terms";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Ph-Ny-P3K"; */
+"9Ph-Ny-P3K.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "Axu-Tx-x5d"; */
+"Axu-Tx-x5d.normalTitle" = "Next";
+
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "HV2-vE-FCy"; */
+"HV2-vE-FCy.configuration.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "HV2-vE-FCy"; */
+"HV2-vE-FCy.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Verification code"; ObjectID = "KhW-hv-tOh"; */
+"KhW-hv-tOh.text" = "Verification code";
+
+/* Class = "UILabel"; text = "Didn't receive a verification code?"; ObjectID = "L3Q-1H-N2E"; */
+"L3Q-1H-N2E.text" = "Didn't receive a verification code?";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "LC2-CJ-sEn"; */
+"LC2-CJ-sEn.text" = "Privacy Policy";
+
+/* Class = "UILabel"; text = "Continue with Google"; ObjectID = "Ocb-ZI-qjP"; */
+"Ocb-ZI-qjP.text" = "Continue with Google";
+
+/* Class = "UILabel"; text = "Sign in with mobile number"; ObjectID = "OmS-nR-1mx"; */
+"OmS-nR-1mx.text" = "Sign in with mobile number";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "RmN-DN-bxh"; */
+"RmN-DN-bxh.text" = "and";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "S2B-X7-JIF"; */
+"S2B-X7-JIF.text" = "and";
+
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "SYb-vq-eD2"; */
+"SYb-vq-eD2.configuration.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "SYb-vq-eD2"; */
+"SYb-vq-eD2.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Please enter the 4-digit code sent by SMS to 1234567890"; ObjectID = "Se9-jw-7P9"; */
+"Se9-jw-7P9.text" = "Please enter the 4-digit code sent by SMS to 1234567890";
+
+/* Class = "UILabel"; text = "#1 DATING & MARRIAGE APP FOR MUSLIMS"; ObjectID = "ZEW-ze-TYf"; */
+"ZEW-ze-TYf.text" = "#1 DATING & MARRIAGE APP FOR MUSLIMS";
+
+/* Class = "UILabel"; text = "By continuing you agree to the"; ObjectID = "Zd8-mQ-NfV"; */
+"Zd8-mQ-NfV.text" = "By continuing you agree to the";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "bR8-ei-HnI"; */
+"bR8-ei-HnI.text" = "Privacy Policy";
+
+/* Class = "UILabel"; text = "By tapping Continue your payment will be charged to your account and your subscription will automatically renew for the same package length at the same price until you cancel in your Account Settings at least 24 hour phor to the end of the current period. Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase. By tapping Continue, you agree to our"; ObjectID = "bTO-Fg-hBH"; */
+"bTO-Fg-hBH.text" = "By tapping Continue your payment will be charged to your account and your subscription will automatically renew for the same package length at the same price until you cancel in your Account Settings at least 24 hour phor to the end of the current period. Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase. By tapping Continue, you agree to our";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "ccS-oq-CsB"; */
+"ccS-oq-CsB.text" = "00:00:00";
+
+/* Class = "UITextField"; placeholder = "Enter your phone number"; ObjectID = "ccf-Z9-ffu"; */
+"ccf-Z9-ffu.placeholder" = "Enter your phone number";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "dsZ-yn-rUN"; */
+"dsZ-yn-rUN.normalTitle" = "Next";
+
+/* Class = "UIButton"; configuration.title = "Resend the code"; ObjectID = "fae-rp-3GZ"; */
+"fae-rp-3GZ.configuration.title" = "Resend the code";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fae-rp-3GZ"; */
+"fae-rp-3GZ.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "iNa-RM-Zhs"; */
+"iNa-RM-Zhs.normalTitle" = "Continue";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "jzh-9U-ZRa"; */
+"jzh-9U-ZRa.placeholder" = "Code";
+
+/* Class = "UILabel"; text = "Continue with Facebook"; ObjectID = "kCp-QN-2lh"; */
+"kCp-QN-2lh.text" = "Continue with Facebook";
+
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "nFa-zx-NYc"; */
+"nFa-zx-NYc.configuration.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "nFa-zx-NYc"; */
+"nFa-zx-NYc.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "pqb-cW-AfF"; */
+"pqb-cW-AfF.text" = "and";
+
+/* Class = "UILabel"; text = "By continuing you agree to the"; ObjectID = "qIb-SD-53q"; */
+"qIb-SD-53q.text" = "By continuing you agree to the";
+
+/* Class = "UILabel"; text = "Recurring billing, cancel anytime,"; ObjectID = "rap-rO-djJ"; */
+"rap-rO-djJ.text" = "Recurring billing, cancel anytime,";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "vQN-g2-4gt"; */
+"vQN-g2-4gt.text" = "Privacy Policy";
+
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "vx4-pQ-4Bl"; */
+"vx4-pQ-4Bl.configuration.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vx4-pQ-4Bl"; */
+"vx4-pQ-4Bl.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "#1 DATING & MARRIAGE APP FOR MUSLIMS"; ObjectID = "wAN-ED-OXA"; */
+"wAN-ED-OXA.text" = "#1 DATING & MARRIAGE APP FOR MUSLIMS";
+
+/* Class = "UILabel"; text = "Continue with Apple"; ObjectID = "xZn-xX-dcx"; */
+"xZn-xX-dcx.text" = "Continue with Apple";
+
+/* Class = "UILabel"; text = "Terms"; ObjectID = "y51-BQ-ReN"; */
+"y51-BQ-ReN.text" = "Terms";

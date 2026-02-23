@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProText-Regular.ttf">
+            <string>SFProText-Regular</string>
+        </array>
+        <array key="SFProText-Semibold.ttf">
+            <string>SFProText-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatingTipsVC" customModule="HalalDating" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-JC-e4v">
+                    <rect key="frame" x="0.0" y="119" width="393" height="699"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvc-Fd-o9u">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="775"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="pgj-Z7-bkn">
+                                    <rect key="frame" x="20" y="20" width="353" height="735"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="art-yd-iyL">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="102.66666666666667"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love God First" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNJ-CH-uIk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“So I say, walk by the Spirit, and you will not gratify the desires of the flesh.”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bd4-n1-KzT">
+                                                    <rect key="frame" x="0.0" y="31.666666666666654" width="353" height="40.666666666666657"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Galatians 5:16" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oo-Q5-jKs">
+                                                    <rect key="frame" x="0.0" y="82.333333333333343" width="353" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6zp-rK-aCX">
+                                            <rect key="frame" x="0.0" y="132.66666666666669" width="353" height="123"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trust His Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AO4-oE-VeS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;This is the confidence we have in approaching God: that if we ask anything according to his will, he hears us.”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXl-k0-4uA">
+                                                    <rect key="frame" x="0.0" y="31.666666666666629" width="353" height="61"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 John 5:14 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mq-SF-D6j">
+                                                    <rect key="frame" x="0.0" y="102.66666666666663" width="353" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N3g-oh-mQb">
+                                            <rect key="frame" x="0.0" y="285.66666666666669" width="353" height="143.33333333333331"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be Confident in Who You Are" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gE-f2-cR9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKU-vG-VE6">
+                                                    <rect key="frame" x="0.0" y="31.666666666666622" width="353" height="81.333333333333314"/>
+                                                    <string key="text">“For everything in the world—the lust of the flesh, the lust of the eyes, and the pride of life—comes not from the Father but from the world.”</string>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 John 2:16" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxA-NA-QNF">
+                                                    <rect key="frame" x="0.0" y="122.99999999999993" width="353" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Ec-ac-OAh">
+                                            <rect key="frame" x="0.0" y="459" width="353" height="102.66666666666663"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Know What You’re Looking For" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMz-cW-vRa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“So whether you eat or drink or whatever you do, do it all for the glory of God.” " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2F-tX-wv9">
+                                                    <rect key="frame" x="0.0" y="31.666666666666625" width="353" height="40.666666666666657"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Corinthians 10:31 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAa-dK-g5c">
+                                                    <rect key="frame" x="0.0" y="82.333333333333371" width="353" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6ED-kK-ZPg">
+                                            <rect key="frame" x="0.0" y="591.66666666666663" width="353" height="143.33333333333337"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Real-Time Communication" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqX-BK-Cep">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="21.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x22-uY-OjM">
+                                                    <rect key="frame" x="0.0" y="31.666666666666735" width="353" height="81.333333333333314"/>
+                                                    <string key="text">“Flee the evil desires of youth and pursue righteousness, faith, love and peace, along with those who call on the Lord out of a pure heart.”</string>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Timothy 2:22 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0du-Wc-aBz">
+                                                    <rect key="frame" x="0.0" y="122.99999999999999" width="353" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                                    <color key="textColor" name="AppBlack"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="pgj-Z7-bkn" firstAttribute="leading" secondItem="fvc-Fd-o9u" secondAttribute="leading" constant="20" id="Ncs-l7-etU"/>
+                                <constraint firstItem="pgj-Z7-bkn" firstAttribute="top" secondItem="fvc-Fd-o9u" secondAttribute="top" constant="20" id="Sba-a6-Ft6"/>
+                                <constraint firstAttribute="trailing" secondItem="pgj-Z7-bkn" secondAttribute="trailing" constant="20" id="axd-4G-4L9"/>
+                                <constraint firstAttribute="bottom" secondItem="pgj-Z7-bkn" secondAttribute="bottom" constant="20" id="pNR-Fc-6Ke"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xGE-qE-IvR" firstAttribute="trailing" secondItem="fvc-Fd-o9u" secondAttribute="trailing" id="0Zg-Rf-2UJ"/>
+                        <constraint firstItem="fvc-Fd-o9u" firstAttribute="leading" secondItem="xGE-qE-IvR" secondAttribute="leading" id="AA6-wF-FqE"/>
+                        <constraint firstItem="fvc-Fd-o9u" firstAttribute="top" secondItem="AhI-O1-mKN" secondAttribute="top" id="JJg-H9-DLL"/>
+                        <constraint firstItem="fvc-Fd-o9u" firstAttribute="height" secondItem="AhI-O1-mKN" secondAttribute="height" id="k2Y-8c-1dc"/>
+                        <constraint firstItem="fvc-Fd-o9u" firstAttribute="width" secondItem="AhI-O1-mKN" secondAttribute="width" id="uMF-eU-6bh"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="AhI-O1-mKN"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="xGE-qE-IvR"/>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIB-aT-mdC">
+                    <rect key="frame" x="0.0" y="59" width="393" height="60"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_back" translatesAutoresizingMaskIntoConstraints="NO" id="ToD-c3-hSG">
+                            <rect key="frame" x="10" y="21" width="18" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="18" id="rQf-T7-dKu"/>
+                                <constraint firstAttribute="height" constant="18" id="wIz-qH-nCQ"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Gz-KZ-X5W">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="p2j-jo-jJK"/>
+                            </constraints>
+                            <connections>
+                                <action selector="btnBack:" destination="-1" eventType="touchUpInside" id="q0d-uf-9Rm"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Christian Dating Tips" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pID-Kj-ZTs">
+                            <rect key="frame" x="38" y="20" width="340" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="17"/>
+                            <color key="textColor" name="AppBlack"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="pID-Kj-ZTs" firstAttribute="leading" secondItem="ToD-c3-hSG" secondAttribute="trailing" constant="10" id="DXV-ZW-Xtn"/>
+                        <constraint firstAttribute="bottom" secondItem="5Gz-KZ-X5W" secondAttribute="bottom" id="E4J-7y-E8J"/>
+                        <constraint firstItem="5Gz-KZ-X5W" firstAttribute="top" secondItem="MIB-aT-mdC" secondAttribute="top" id="KGg-Qm-fxa"/>
+                        <constraint firstItem="ToD-c3-hSG" firstAttribute="leading" secondItem="MIB-aT-mdC" secondAttribute="leading" constant="10" id="Kwo-K4-PnJ"/>
+                        <constraint firstAttribute="height" constant="60" id="Ocs-aA-yIQ"/>
+                        <constraint firstItem="ToD-c3-hSG" firstAttribute="centerY" secondItem="MIB-aT-mdC" secondAttribute="centerY" id="P00-PL-3iH"/>
+                        <constraint firstAttribute="trailing" secondItem="pID-Kj-ZTs" secondAttribute="trailing" constant="15" id="TYd-L7-VN1"/>
+                        <constraint firstItem="5Gz-KZ-X5W" firstAttribute="leading" secondItem="MIB-aT-mdC" secondAttribute="leading" id="jck-6z-wBg"/>
+                        <constraint firstItem="pID-Kj-ZTs" firstAttribute="centerY" secondItem="MIB-aT-mdC" secondAttribute="centerY" id="ydB-3r-7O5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="MIB-aT-mdC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Auu-Zc-EQy"/>
+                <constraint firstItem="ONd-JC-e4v" firstAttribute="top" secondItem="MIB-aT-mdC" secondAttribute="bottom" id="FnT-zq-CT8"/>
+                <constraint firstItem="ONd-JC-e4v" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="JGz-rv-wmo"/>
+                <constraint firstAttribute="trailing" secondItem="MIB-aT-mdC" secondAttribute="trailing" id="U0d-Em-0d9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ONd-JC-e4v" secondAttribute="bottom" id="aTV-XA-IFV"/>
+                <constraint firstItem="MIB-aT-mdC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="b3c-hh-vfo"/>
+                <constraint firstItem="ONd-JC-e4v" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="sMT-0I-pv7"/>
+            </constraints>
+            <point key="canvasLocation" x="47" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_back" width="72" height="128"/>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

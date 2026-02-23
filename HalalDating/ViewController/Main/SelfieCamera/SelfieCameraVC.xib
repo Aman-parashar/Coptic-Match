@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelfieCameraVC" customModule="HalalDating" customModuleProvider="target">
+            <connections>
+                <outlet property="headerView" destination="iEv-Gm-vij" id="ic6-aA-fTB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewbgCamera" destination="G4w-TM-mKP" id="URT-cx-klX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEv-Gm-vij" customClass="HeaderView" customModule="HalalDating" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="ldL-Fu-mOR"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0P-yo-SIc">
+                    <rect key="frame" x="177" y="787" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Wwk-YZ-R4I"/>
+                        <constraint firstAttribute="width" constant="60" id="ZEV-cJ-5qb"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title=" ">
+                        <backgroundConfiguration key="background" image="ic_cam"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="btnTakePhoto:" destination="-1" eventType="touchUpInside" id="knl-Si-xmz"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G4w-TM-mKP">
+                    <rect key="frame" x="15" y="104" width="384" height="668"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cornerRadius" value="15"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="q0P-yo-SIc" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="2ga-ic-1aU"/>
+                <constraint firstItem="G4w-TM-mKP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="5DX-FF-fts"/>
+                <constraint firstItem="G4w-TM-mKP" firstAttribute="top" secondItem="iEv-Gm-vij" secondAttribute="bottom" id="I4y-3z-g4h"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="q0P-yo-SIc" secondAttribute="bottom" constant="15" id="NoA-4O-3nu"/>
+                <constraint firstItem="iEv-Gm-vij" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="SvQ-dP-7Wn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="G4w-TM-mKP" secondAttribute="trailing" constant="15" id="UyP-2i-DhP"/>
+                <constraint firstItem="q0P-yo-SIc" firstAttribute="top" secondItem="G4w-TM-mKP" secondAttribute="bottom" constant="15" id="cQw-Sb-pez"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iEv-Gm-vij" secondAttribute="trailing" id="e0A-0k-mwW"/>
+                <constraint firstItem="iEv-Gm-vij" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="w5s-Ym-Vdd"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="85"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_cam" width="210" height="210"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

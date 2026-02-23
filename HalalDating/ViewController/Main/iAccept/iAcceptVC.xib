@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProText-Regular.ttf">
+            <string>SFProText-Regular</string>
+        </array>
+        <array key="SFProText-Semibold.ttf">
+            <string>SFProText-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="iAcceptVC" customModule="HalalDating" customModuleProvider="target">
+            <connections>
+                <outlet property="btnNext" destination="fVe-72-fgF" id="5Qp-SK-IDo"/>
+                <outlet property="lblBeHonestSubtitle" destination="lro-8Z-NjL" id="K2Z-lI-Goz"/>
+                <outlet property="lblBeHonestTitle" destination="tup-8D-BId" id="ja3-O3-fjU"/>
+                <outlet property="lblMissionSubtitle" destination="iaK-zJ-KkH" id="vxB-Ig-qCk"/>
+                <outlet property="lblMissionTitle" destination="wHF-Gm-0Ix" id="jKV-qJ-Pj4"/>
+                <outlet property="lblRespectSubtile" destination="xMp-db-Veh" id="PIW-mf-lxr"/>
+                <outlet property="lblRespectTitle" destination="4cu-0M-Yo0" id="GOI-QL-hNH"/>
+                <outlet property="lblWelcome" destination="XbA-WM-l4p" id="Cw5-DJ-dvA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYz-wr-nUr">
+                    <rect key="frame" x="0.0" y="48" width="414" height="739"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtV-zx-cQS">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_final" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bz-tr-aZP">
+                                    <rect key="frame" x="137" y="10" width="140" height="140"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="140" id="8d8-Zi-3Me"/>
+                                        <constraint firstAttribute="width" constant="140" id="W6N-ae-oHZ"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_urdu_text" translatesAutoresizingMaskIntoConstraints="NO" id="MTM-Ax-9eD">
+                                    <rect key="frame" x="20" y="200" width="374" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="BKO-W0-FSZ"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Logos!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-WM-l4p">
+                                    <rect key="frame" x="20" y="285" width="374" height="24"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="20"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be Honest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tup-8D-BId">
+                                    <rect key="frame" x="20" y="339" width="374" height="21"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logos Only For Those Seriously Looking For Marriage &amp; Relationship" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lro-8Z-NjL">
+                                    <rect key="frame" x="20" y="370" width="374" height="41"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be Respectful" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cu-0M-Yo0">
+                                    <rect key="frame" x="20" y="436" width="374" height="21"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be respectful and kind to everyone on logos, and follow our community guidelines." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMp-db-Veh">
+                                    <rect key="frame" x="20" y="467" width="374" height="41"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Mission" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHF-Gm-0Ix">
+                                    <rect key="frame" x="20" y="533" width="374" height="21"/>
+                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaK-zJ-KkH">
+                                    <rect key="frame" x="20" y="564" width="374" height="81.5"/>
+                                    <string key="text">Our Support team will do the best to eliminate scammers and fake profiles. 
+You will have the highest chance to find your partner here.</string>
+                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We love because he first loved us." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wuu-Gh-4YH">
+                                    <rect key="frame" x="20" y="200" width="374" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="NOy-NY-V0Q"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="20"/>
+                                    <color key="textColor" name="AppBlack"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="iaK-zJ-KkH" secondAttribute="bottom" constant="15" id="2Ml-Lr-Tgr"/>
+                                <constraint firstItem="wHF-Gm-0Ix" firstAttribute="leading" secondItem="xMp-db-Veh" secondAttribute="leading" id="2U1-O4-YqM"/>
+                                <constraint firstItem="4cu-0M-Yo0" firstAttribute="trailing" secondItem="lro-8Z-NjL" secondAttribute="trailing" id="4Zb-vt-D1W"/>
+                                <constraint firstItem="tup-8D-BId" firstAttribute="leading" secondItem="EtV-zx-cQS" secondAttribute="leading" constant="20" id="5CD-gQ-xaY"/>
+                                <constraint firstItem="XbA-WM-l4p" firstAttribute="top" secondItem="Wuu-Gh-4YH" secondAttribute="bottom" constant="50" id="Aqq-YK-crh"/>
+                                <constraint firstItem="xMp-db-Veh" firstAttribute="top" secondItem="4cu-0M-Yo0" secondAttribute="bottom" constant="10" id="DTA-qS-5pg"/>
+                                <constraint firstItem="XbA-WM-l4p" firstAttribute="top" secondItem="MTM-Ax-9eD" secondAttribute="bottom" constant="50" id="EYz-x5-sJj"/>
+                                <constraint firstAttribute="trailing" secondItem="Wuu-Gh-4YH" secondAttribute="trailing" constant="20" id="F0X-7U-LZ2"/>
+                                <constraint firstItem="tup-8D-BId" firstAttribute="top" secondItem="XbA-WM-l4p" secondAttribute="bottom" constant="30" id="Lic-oS-2XL"/>
+                                <constraint firstItem="lro-8Z-NjL" firstAttribute="trailing" secondItem="tup-8D-BId" secondAttribute="trailing" id="MPE-e8-qeG"/>
+                                <constraint firstItem="iaK-zJ-KkH" firstAttribute="trailing" secondItem="wHF-Gm-0Ix" secondAttribute="trailing" id="MuG-J7-QM8"/>
+                                <constraint firstItem="MTM-Ax-9eD" firstAttribute="leading" secondItem="EtV-zx-cQS" secondAttribute="leading" constant="20" symbolic="YES" id="Ngd-1n-iru"/>
+                                <constraint firstItem="XbA-WM-l4p" firstAttribute="leading" secondItem="EtV-zx-cQS" secondAttribute="leading" constant="20" id="Oww-RK-Xuu"/>
+                                <constraint firstItem="2bz-tr-aZP" firstAttribute="centerX" secondItem="EtV-zx-cQS" secondAttribute="centerX" id="P3Q-AX-CPN"/>
+                                <constraint firstItem="iaK-zJ-KkH" firstAttribute="top" secondItem="wHF-Gm-0Ix" secondAttribute="bottom" constant="10" id="Pod-HG-szI"/>
+                                <constraint firstItem="4cu-0M-Yo0" firstAttribute="top" secondItem="lro-8Z-NjL" secondAttribute="bottom" constant="25" id="RMX-Pd-V5w"/>
+                                <constraint firstItem="lro-8Z-NjL" firstAttribute="top" secondItem="tup-8D-BId" secondAttribute="bottom" constant="10" id="Tdm-nF-9cK"/>
+                                <constraint firstItem="MTM-Ax-9eD" firstAttribute="top" secondItem="2bz-tr-aZP" secondAttribute="bottom" constant="50" id="Ue8-cx-2dB"/>
+                                <constraint firstItem="XbA-WM-l4p" firstAttribute="trailing" secondItem="Wuu-Gh-4YH" secondAttribute="trailing" id="V0R-8g-vWB"/>
+                                <constraint firstItem="2bz-tr-aZP" firstAttribute="top" secondItem="EtV-zx-cQS" secondAttribute="top" constant="10" id="Vnd-lC-uvD"/>
+                                <constraint firstItem="Wuu-Gh-4YH" firstAttribute="top" secondItem="2bz-tr-aZP" secondAttribute="bottom" constant="50" id="WQ6-3h-7FE"/>
+                                <constraint firstItem="wHF-Gm-0Ix" firstAttribute="top" secondItem="xMp-db-Veh" secondAttribute="bottom" constant="25" id="Z1H-b7-Saz"/>
+                                <constraint firstItem="lro-8Z-NjL" firstAttribute="leading" secondItem="tup-8D-BId" secondAttribute="leading" id="ZdZ-fc-Dp7"/>
+                                <constraint firstItem="wHF-Gm-0Ix" firstAttribute="trailing" secondItem="xMp-db-Veh" secondAttribute="trailing" id="bY6-UQ-ZW1"/>
+                                <constraint firstItem="iaK-zJ-KkH" firstAttribute="leading" secondItem="wHF-Gm-0Ix" secondAttribute="leading" id="bxz-65-JhJ"/>
+                                <constraint firstItem="xMp-db-Veh" firstAttribute="leading" secondItem="4cu-0M-Yo0" secondAttribute="leading" id="cvS-Gu-uO6"/>
+                                <constraint firstItem="xMp-db-Veh" firstAttribute="trailing" secondItem="4cu-0M-Yo0" secondAttribute="trailing" id="dFw-0j-mOa"/>
+                                <constraint firstItem="4cu-0M-Yo0" firstAttribute="leading" secondItem="lro-8Z-NjL" secondAttribute="leading" id="hL7-QR-udg"/>
+                                <constraint firstItem="XbA-WM-l4p" firstAttribute="leading" secondItem="Wuu-Gh-4YH" secondAttribute="leading" id="ilA-KT-YwF"/>
+                                <constraint firstItem="MTM-Ax-9eD" firstAttribute="centerX" secondItem="EtV-zx-cQS" secondAttribute="centerX" id="irm-9E-PQO"/>
+                                <constraint firstAttribute="trailing" secondItem="MTM-Ax-9eD" secondAttribute="trailing" constant="20" symbolic="YES" id="lQz-sP-BlO"/>
+                                <constraint firstAttribute="trailing" secondItem="tup-8D-BId" secondAttribute="trailing" constant="20" id="mQf-FN-amD"/>
+                                <constraint firstItem="tup-8D-BId" firstAttribute="leading" secondItem="XbA-WM-l4p" secondAttribute="leading" id="mm5-yC-too"/>
+                                <constraint firstItem="Wuu-Gh-4YH" firstAttribute="leading" secondItem="EtV-zx-cQS" secondAttribute="leading" constant="20" id="vKw-F7-Ykp"/>
+                                <constraint firstItem="tup-8D-BId" firstAttribute="trailing" secondItem="XbA-WM-l4p" secondAttribute="trailing" id="vSL-wL-A4H"/>
+                                <constraint firstAttribute="trailing" secondItem="XbA-WM-l4p" secondAttribute="trailing" constant="20" id="zSF-Ed-rQB"/>
+                            </constraints>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="EtV-zx-cQS" firstAttribute="height" secondItem="EYz-wr-nUr" secondAttribute="height" id="AHu-Vv-w6Z"/>
+                        <constraint firstItem="EtV-zx-cQS" firstAttribute="leading" secondItem="EYz-wr-nUr" secondAttribute="leading" id="JTE-wn-C2c"/>
+                        <constraint firstItem="EtV-zx-cQS" firstAttribute="top" secondItem="EYz-wr-nUr" secondAttribute="top" id="Ky0-ri-7l5"/>
+                        <constraint firstAttribute="trailing" secondItem="EtV-zx-cQS" secondAttribute="trailing" id="nHz-rQ-zLz"/>
+                    </constraints>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-OT-xEr">
+                    <rect key="frame" x="20" y="802" width="374" height="50"/>
+                    <subviews>
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bg_orange" translatesAutoresizingMaskIntoConstraints="NO" id="lqE-hr-eOP">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVe-72-fgF">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                            <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="20"/>
+                            <state key="normal" title="I accept">
+                                <color key="titleColor" name="AppWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnNext:" destination="-1" eventType="touchUpInside" id="3Vm-fl-tZF"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" name="btnBackground"/>
+                    <constraints>
+                        <constraint firstItem="lqE-hr-eOP" firstAttribute="top" secondItem="3QY-OT-xEr" secondAttribute="top" id="5WH-ep-68d"/>
+                        <constraint firstAttribute="height" constant="50" id="CF2-P1-ROk"/>
+                        <constraint firstItem="lqE-hr-eOP" firstAttribute="leading" secondItem="3QY-OT-xEr" secondAttribute="leading" id="CmZ-vZ-wPh"/>
+                        <constraint firstAttribute="bottom" secondItem="lqE-hr-eOP" secondAttribute="bottom" id="NV4-rb-dLd"/>
+                        <constraint firstItem="fVe-72-fgF" firstAttribute="top" secondItem="3QY-OT-xEr" secondAttribute="top" id="YZl-hu-0tr"/>
+                        <constraint firstAttribute="trailing" secondItem="lqE-hr-eOP" secondAttribute="trailing" id="Yj9-9s-csu"/>
+                        <constraint firstAttribute="trailing" secondItem="fVe-72-fgF" secondAttribute="trailing" id="iwQ-A5-j7T"/>
+                        <constraint firstAttribute="bottom" secondItem="fVe-72-fgF" secondAttribute="bottom" id="nxf-L3-a8p"/>
+                        <constraint firstItem="fVe-72-fgF" firstAttribute="leading" secondItem="3QY-OT-xEr" secondAttribute="leading" id="wAE-8J-Fux"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cornerRadius" value="25"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EYz-wr-nUr" secondAttribute="trailing" id="3e4-Gk-eEa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3QY-OT-xEr" secondAttribute="bottom" constant="10" id="Nkh-iZ-Shv"/>
+                <constraint firstItem="3QY-OT-xEr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Yd2-gD-wNV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3QY-OT-xEr" secondAttribute="trailing" constant="20" id="loV-px-soD"/>
+                <constraint firstItem="3QY-OT-xEr" firstAttribute="top" secondItem="EYz-wr-nUr" secondAttribute="bottom" constant="15" id="mNE-Ke-3Fe"/>
+                <constraint firstItem="EYz-wr-nUr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nmm-qx-XE3"/>
+                <constraint firstItem="EYz-wr-nUr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wUo-wI-qR9"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="61"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Logo_final" width="394" height="512"/>
+        <image name="ic_bg_orange" width="1024" height="172"/>
+        <image name="ic_urdu_text" width="512" height="80"/>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="btnBackground">
+            <color red="0.25099998712539673" green="0.32199999690055847" blue="0.37599998712539673" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

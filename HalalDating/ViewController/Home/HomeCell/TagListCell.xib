@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProText-Regular.ttf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TagListCell" customModule="HalalDating" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="130" height="38"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="130" height="38"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="erI-uY-hEo">
+                        <rect key="frame" x="0.0" y="0.0" width="130" height="38"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcc-x5-OPk">
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_pray" translatesAutoresizingMaskIntoConstraints="NO" id="HmK-95-C4Z">
+                                        <rect key="frame" x="8" y="7.6666666666666679" width="15" height="15"/>
+                                        <color key="tintColor" name="iconTintColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="PGt-YU-d7i"/>
+                                            <constraint firstAttribute="width" constant="15" id="Yhh-x8-JdV"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ich-P0-R0h">
+                                        <rect key="frame" x="25" y="5" width="97" height="20"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HmK-95-C4Z" firstAttribute="leading" secondItem="dcc-x5-OPk" secondAttribute="leading" constant="8" id="2Nh-Nr-dN7"/>
+                                    <constraint firstItem="HmK-95-C4Z" firstAttribute="centerY" secondItem="dcc-x5-OPk" secondAttribute="centerY" id="QOB-NJ-A8k"/>
+                                    <constraint firstAttribute="height" constant="30" id="T1u-qi-jQ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ich-P0-R0h" secondAttribute="bottom" constant="5" id="bh3-1u-mJa"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ich-P0-R0h" secondAttribute="trailing" constant="8" id="f2F-Bh-v0f"/>
+                                    <constraint firstItem="Ich-P0-R0h" firstAttribute="top" secondItem="dcc-x5-OPk" secondAttribute="top" constant="5" id="pae-bo-ulA"/>
+                                    <constraint firstItem="Ich-P0-R0h" firstAttribute="leading" secondItem="HmK-95-C4Z" secondAttribute="trailing" constant="2" id="tAs-he-9dM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="cornerRadius" value="15"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="systemGray5Color"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dcc-x5-OPk" secondAttribute="bottom" id="CCC-qc-FPD"/>
+                            <constraint firstItem="dcc-x5-OPk" firstAttribute="top" secondItem="erI-uY-hEo" secondAttribute="top" id="TzY-vj-A6a"/>
+                            <constraint firstAttribute="trailing" secondItem="dcc-x5-OPk" secondAttribute="trailing" id="Ujl-bM-Qdb"/>
+                            <constraint firstItem="dcc-x5-OPk" firstAttribute="leading" secondItem="erI-uY-hEo" secondAttribute="leading" id="xfY-bi-faD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="erI-uY-hEo" secondAttribute="trailing" id="BXf-b8-UZX"/>
+                <constraint firstAttribute="bottom" secondItem="erI-uY-hEo" secondAttribute="bottom" id="Ewu-yB-Up7"/>
+                <constraint firstItem="erI-uY-hEo" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="QIa-2F-iCq"/>
+                <constraint firstItem="erI-uY-hEo" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cEz-sQ-R1F"/>
+            </constraints>
+            <size key="customSize" width="130" height="38"/>
+            <connections>
+                <outlet property="ic_cat" destination="HmK-95-C4Z" id="NIW-xx-Jv3"/>
+                <outlet property="lblTitl" destination="Ich-P0-R0h" id="fM9-hY-pzD"/>
+                <outlet property="viewbg" destination="dcc-x5-OPk" id="bFu-IW-aHY"/>
+            </connections>
+            <point key="canvasLocation" x="71.755725190839698" y="-40.140845070422536"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_pray" width="107" height="128"/>
+        <namedColor name="iconTintColor">
+            <color red="0.066666666666666666" green="0.76862745098039209" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

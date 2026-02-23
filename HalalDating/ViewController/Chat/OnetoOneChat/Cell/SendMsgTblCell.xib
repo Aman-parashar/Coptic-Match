@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SendMsgTblCell" rowHeight="151" id="KGk-i7-Jjw" customClass="SendMsgTblCell" customModule="HalalDating" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xiL-Bd-CMM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 day ago" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUg-f3-LFu">
+                                <rect key="frame" x="256" y="115" width="54" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="dZS-Xg-8YX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6D-Wg-WBz">
+                                <rect key="frame" x="247" y="5" width="68" height="110"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MvS-tg-EPN">
+                                        <rect key="frame" x="0.0" y="0.0" width="68" height="110"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outgoing-message-bubble" translatesAutoresizingMaskIntoConstraints="NO" id="PH7-dT-anr">
+                                        <rect key="frame" x="0.0" y="0.0" width="68" height="110"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKE-iP-iXT">
+                                        <rect key="frame" x="10" y="10" width="43" height="90"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MvS-tg-EPN" secondAttribute="trailing" id="0WR-js-1bX"/>
+                                    <constraint firstItem="PH7-dT-anr" firstAttribute="leading" secondItem="H6D-Wg-WBz" secondAttribute="leading" id="40f-pM-NQv"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="GnT-uG-STQ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Qge-9z-Cjs"/>
+                                    <constraint firstAttribute="bottom" secondItem="MvS-tg-EPN" secondAttribute="bottom" id="Qid-op-vWW"/>
+                                    <constraint firstItem="MvS-tg-EPN" firstAttribute="leading" secondItem="H6D-Wg-WBz" secondAttribute="leading" id="RgZ-Ko-fkl"/>
+                                    <constraint firstItem="KKE-iP-iXT" firstAttribute="top" secondItem="H6D-Wg-WBz" secondAttribute="top" constant="10" id="UbP-e6-bjn"/>
+                                    <constraint firstAttribute="trailing" secondItem="KKE-iP-iXT" secondAttribute="trailing" constant="15" id="a8m-JO-2BM"/>
+                                    <constraint firstItem="PH7-dT-anr" firstAttribute="top" secondItem="H6D-Wg-WBz" secondAttribute="top" id="d9O-Db-0QU"/>
+                                    <constraint firstAttribute="bottom" secondItem="KKE-iP-iXT" secondAttribute="bottom" constant="10" id="f2z-ns-gAH"/>
+                                    <constraint firstAttribute="bottom" secondItem="PH7-dT-anr" secondAttribute="bottom" id="hXh-5n-b4Y"/>
+                                    <constraint firstItem="MvS-tg-EPN" firstAttribute="top" secondItem="H6D-Wg-WBz" secondAttribute="top" id="o6L-Vu-mdx"/>
+                                    <constraint firstAttribute="trailing" secondItem="PH7-dT-anr" secondAttribute="trailing" id="quh-GV-2eE"/>
+                                    <constraint firstItem="KKE-iP-iXT" firstAttribute="leading" secondItem="H6D-Wg-WBz" secondAttribute="leading" constant="10" id="u5t-ms-ii2"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="H6D-Wg-WBz" secondAttribute="trailing" constant="5" id="0Hg-qT-Cif"/>
+                            <constraint firstItem="H6D-Wg-WBz" firstAttribute="top" secondItem="xiL-Bd-CMM" secondAttribute="top" constant="5" id="1yy-uY-PXj"/>
+                            <constraint firstAttribute="bottom" secondItem="wUg-f3-LFu" secondAttribute="bottom" constant="5" id="HVh-gp-Tn6"/>
+                            <constraint firstItem="wUg-f3-LFu" firstAttribute="top" secondItem="H6D-Wg-WBz" secondAttribute="bottom" id="frT-tD-4qu"/>
+                            <constraint firstAttribute="trailing" secondItem="wUg-f3-LFu" secondAttribute="trailing" constant="10" id="zdH-MF-aRB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="xiL-Bd-CMM" secondAttribute="bottom" id="8Vo-Am-YCF"/>
+                    <constraint firstItem="xiL-Bd-CMM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B8L-5G-un2"/>
+                    <constraint firstAttribute="trailing" secondItem="xiL-Bd-CMM" secondAttribute="trailing" id="Ncs-Y5-9xz"/>
+                    <constraint firstItem="xiL-Bd-CMM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mgL-MK-hH0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bgView" destination="MvS-tg-EPN" id="aGk-RG-vbo"/>
+                <outlet property="imgBubble" destination="PH7-dT-anr" id="bSi-gG-wtI"/>
+                <outlet property="lblTime" destination="wUg-f3-LFu" id="ciM-n2-ypy"/>
+                <outlet property="lblTitle" destination="KKE-iP-iXT" id="fgI-rm-J5x"/>
+            </connections>
+            <point key="canvasLocation" x="69.565217391304358" y="131.58482142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="outgoing-message-bubble" width="68" height="34"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,462 @@
+/* 
+  Localizable.strings
+  HalalDating
+
+  Created by Apple on 05/12/22.
+  
+*/
+"No data found" = "لاتوجد بيانات";
+"No internet connection" = "لا يوجد اتصال بالإنترنت";
+"Not detect internet" = "عدم الكشف عن الإنترنت";
+"Something went wrong. please try again" = "هناك خطأ ما. حاول مرة اخرى.";
+"Search" = "يبحث";
+"Type a message..." = "...اكتب رسالة";
+"Chat" = "دردشة";
+"Profile" = "الملف الشخصي";
+"Edit profile" = "تعديل الملف الشخصي";
+"User name" = "اسم المستخدم";
+"Email" = "البريد الإلكتروني";
+"Continue with Google" = "تسجيل الدخول باستخدام جوجل";
+"Continue with Facebook" = "تسجيل الدخول باستخدام  فيسبوك";
+"Continue with Apple" = "تواصل مع أبل";
+"By continuing you agree to the" = "من خلال الاستمرار فإنك توافق على";
+"Terms" = "شروط";
+"and" = "و";
+"Privacy Policy" = "سياسة الخصوصية";
+"Please enter valid email address" = "الرجاء إدخال عنوان بريد إلكتروني صالح";
+"Enter your phone number" = "أدخل رقم هاتفك";
+"Phone number" = "رقم الهاتف";
+"Please enter valid phone number" = "الرجاء إدخال رقم هاتف صحيح";
+"Please try again." = "حاول مرة اخرى.";
+"Add Email" = "أضف بريدًا إلكترونيًا";
+"Cancel" = "يلغي";
+"Enter otp" = "otp أدخل";
+"Next" = "التالي";
+"NEXT" = "التالي";
+"Today" = "اليوم";
+"Yesterday" = "في الامس";
+"Do you want to Logout ?" = "هل ترغب بالخروج ؟";
+"No" = "رقم";
+"Yes" = "نعم";
+"Logout Alert !" = "تنبيه الخروج!";
+"Likes" = "الإعجابات";
+"Continue" = "متابعة ";
+"Add your best photos" = "أضف أفضل صورك";
+"Signin with phone number" = "تسجيل الدخول باستخدام رقم الهاتف";
+"Home" = "مسكن";
+"Male" = "ذكر";
+"Female" = "أنثى";
+"All" = "الجميع";
+"Distance" = "المسافة";
+"Gender" = "نوعك";
+"Age" = "العمر";
+"Notification" = "إشعارات ";
+"Filter" = "عوامل التصفية";
+"Photos" = "الصور";
+"Logout" = "تسجيل خروج";
+"#1 Marriage App For Muslims 🥇" = "التطبيق رقم ١ لزواج المسلمين 🥇";
+"Verification code" = "رمز التحقق";
+"Please enter the 4-digit code sent by SMS to" = "الرجاء إدخال الرمز المكون من 4 أرقام المرسل عبر رسالة نصية قصيرة إلى";
+"Didn't receive a verification code?" = "لم تستلم رمز التحقق؟";
+"Resend the code" = "أعد إرسال الرمز";
+"Welcome To HalalDating!" = "مرحبا بكم في HalalDating!";
+"Be Honest" = "كن صادقا";
+"HalalDating Only For Those Seriously Looking For Marriage" = "HalalDating فقط لأولئك الذين يبحثون بجدية عن الزواج";
+"Be Respectful" = "كن محترما";
+"Our Mission" = "مهمتنا";
+"You're here to find real love so please be respectful to others." = "أنت هنا لتجد الحب الحقيقي ، لذا من فضلك كن محترمًا للآخرين.";
+"Our support team will manually review every user profile and do our best to eliminate scammers and fake profiles. You will have the highest chance to find your ideal match here." = "سيقوم فريق الدعم لدينا بمراجعة ملف تعريف كل مستخدم يدويًا وبذل قصارى جهدنا للقضاء على المحتالين والملفات الشخصية المزيفة. سيكون لديك أكبر فرصة للعثور على الشريك المثالي هنا.";
+"I accept" = "وافقت";
+"What's your name?" = "ما اسمك؟";
+"Your nick name and don't share your last name" = "الرجاء الاختيار بعناية لن تتمكن من تحرير هذه المعلومات لاحقًا.";
+"What is your date of birth?" = "ما هو تاريخ ميلادك؟";
+"You must be at least 18 years old to use this app." = "يجب أن يكون عمرك 18 عامًا على الأقل لاستخدام هذا التطبيق.";
+"I am a" = "ما هو جنسك؟";
+"Man" = "ذكر";
+"Woman" = "انثى";
+"Please choose carefully you will not be able to edit this information later." = "الرجاء الاختيار بعناية لن تتمكن من تحرير هذه المعلومات لاحقًا.";
+"What is your relationship status?" = "ما هى حالتك الاجتماعية؟";
+"Never married" = "لم يسبق الزواج";
+"Married" = "متزوج";
+"Separated" = "منفصل";
+"Divorced" = "مطلق";
+"Widowed" = "ارمل";
+"Single" = "أعزب";
+"Do you have kids?" = "هل لديك اطفال؟";
+"Have kids" = "نعم";
+"Don't have kids" = "ليس لديهم اطفال";
+"What is your education?" = "ما هو مستواك التعليمى؟";
+"High School" = "مدرسة ثانوية";
+"Bachelors" = "غير حاصل على شهادة";
+"Masters" = "درجة جامعية";
+"Post graduate" = "دراسات عليا";
+"Prefer not to say" = "افضل عدم القول";
+"What is your height?" = "كم هو طولك؟";
+"4'0'' (122 cm)" = "0'4 (122 سم)";
+"4'1'' (125 cm)" = "1'4 (125 سم)";
+"4'2'' (127 cm)" = "2'4 (127 سم)";
+"4'3'' (130 cm)" = "3'4 (130 سم)";
+"4'4'' (132 cm)" = "4'4 (132 سم)";
+"4'5'' (135 cm)" = "5'4 (135 سم)";
+"4'6'' (137 cm)" = "6'4 (137 سم)";
+"4'7'' (140 cm)" = "7'4 (140 سم)";
+"4'8'' (142 cm)" = "8'4 (142 سم)";
+"4'9'' (145 cm)" = "9'4 (145 سم)";
+"4'10'' (147 cm)" = "10'4 (147 سم)";
+"4'11'' (150 cm)" = "11'4 (150 سم)";
+"4'12'' (152 cm)" = "12'4 (152 سم)";
+"5'0'' (153 cm)" = "0'5 (153 سم)";
+"5'1'' (155 cm)" = "1'5 (155 سم)";
+"5'2'' (157 cm)" = "2'5 (157 سم)";
+"5'3'' (160 cm)" = "3'5 (160 سم)";
+"5'4'' (162 cm)" = "4'5 (162 سم)";
+"5'5'' (165 cm)" = "5'5 (165 سم)";
+"5'6'' (167 cm)" = "6'5 (167 سم)";
+"5'7'' (170 cm)" = "7'5 (170 سم)";
+"5'8'' (172 cm)" = "8'5 (172 سم)";
+"5'9'' (175 cm)" = "9'5 (175 سم)";
+"5'10'' (177 cm)" = "10'5 (177 سم)";
+"5'11'' (180 cm)" = "11'5 (180 سم)";
+"5'12'' (182 cm)" = "12'5 (182 سم)";
+"6'0'' (183 cm)" = "0'6 (183 سم)";
+"6'1'' (186 cm)" = "1'6 (186 سم)";
+"6'2'' (188 cm)" = "2'6 (188 سم)";
+"6'3'' (190 cm)" = "3'6 (190 سم)";
+"6'4'' (193 cm)" = "4'6 (193 سم)";
+"6'5'' (195 cm)" = "5'6 (195 سم)";
+"6'6'' (198 cm)" = "6'6 (198 سم)";
+"6'7'' (200 cm)" = "7'6 (200 سم)";
+"6'8'' (202 cm)" = "8'6 (202 سم)";
+"6'9'' (205 cm)" = "9'6 (205 سم)";
+"6'10'' (207 cm)" = "10'6 (207 سم)";
+"6'11'' (210 cm)" = "11'6 بوصة (210 سم)";
+"6'12'' (212 cm)" = "12'6 (212 سم)";
+"What you looking for?" = "ماذا تبحث عن؟";
+"Friends" = "اصدقاء";
+"Marriage" = "الزواج";
+"Do you work out?" = "هل تمارس الرياضة؟";
+"Active" = "نعم";
+"Sometimes" = "بعض الاحيان";
+"Almost never" = "على الاغلب ل";
+"German" = "ألمانية";
+"English" = "إنجليزي";
+"Spanish" = "الأسبانية";
+"French" = "فرنسي";
+"Indonesian" = "الأندونيسية";
+"Malay" = "لغة الملايو";
+"Dutch" = "هولندي";
+"Urdu" = "الأردية";
+"Hindi" = "هندي";
+"Select your language" = "ماهى اللغة الذى تتحدثها؟";
+"How religious are you?" = "ما مدى تدينك؟";
+"Not Practising" = "لا امارس";
+"Moderately practising" = "متدين";
+"Practising" = "امارس";
+"Very practising" = "اصلى احيانا";
+"Never pray" = "لا اصلى";
+"Sometimes pray" = "بعض الاحيان اصلى";
+"Usually pray" = "عادة اصلى";
+"Always pray" = "دائما اصلى";
+"How often do you pray?" = "كم مرة تصلى؟";
+"Do you only eat halal?" = "هل تاكل الحلال فقط؟";
+"Do you smoke?" = "هل تدخن؟";
+"Do you drink alcohol?" = "هل تشرب الخمر؟";
+"When are you looking to get married?" = "متى تريد الزواج؟";
+"Marriage within a year" = "الزواج خلال عام";
+"Marriage in 1-2 Years" = "الزواج خلال 1-2 اعوام";
+"Marriage in 3-4 Years" = "الزواج خلال 3-4 اعوام";
+"Marriage in 4+ Years" = "الزواج خلال اكثر من 4 اعوام";
+"Don’t know yet" = "لا أعرف بعد";
+"Please upload at least two real pictures of you" = "يرجى تحميل صورتين حقيقيتين على الأقل لك";
+"Main" = "رئيسي";
+"Take a selfie" = "خذ صورة شخصية";
+"Please take a quick selfie to confirm you're a real person. Your selfie won't appear on your profile and will not be seen by our team." = "يرجى التقاط صورة ذاتية سريعة لتأكيد أنك شخص حقيقي. لن تظهر صورتك الذاتية في ملفك الشخصي ولن يراها فريقنا.";
+"Show your face clearly" = "أظهر وجهك بوضوح";
+"Make sure you're in a well it area and have both eyes clearly visible." = "تأكد من أنك في منطقة جيدة وأن تكون كلتا العينين مرئية بوضوح.";
+"Verify person" = "تحقق من هويتى";
+"Submit" = "متابعة ";
+"Retake" = "إعادة";
+"Selfie" = "سيلفي";
+"We're reviewing your profile." = "نحن نراجع ملفك الشخصي.";
+"We're reviewing your profile, try later..." = "نحن نراجع ملفك الشخصي ، حاول لاحقًا ...";
+"Once approved we'll make your profile public for other amazing muslims to discover." = "بمجرد الموافقة ، سنجعل ملفك الشخصي عامًا حتى يكتشفه المسلمون الرائعون الآخرون.";
+"DONE" = "فعله";
+"Gold member Features" = "ميزات الأعضاء الذهبية";
+"Premium member Features" = "ميزات الأعضاء المتميزين";
+"Change your mind" = "غير رأيك";
+"See who likes you" = "انظر من يحبك";
+"Chat without limit" = "الدردشة بلا حدود";
+"Increase your matches" = "زيادة المباريات الخاصة بك";
+"Like without limit" = "مثل بلا حدود";
+"Change any swipe and unlock" = "تغيير أي انتقاد وفتح";
+"Profile Boost" = "تعزيز الملف الشخصي<";
+"Get profile boost and seen by 30x more people" = "احصل على تعزيز للملف الشخصي وشاهده عدد أكبر من الأشخاص بمقدار 30 ضعفًا";
+"Become a Gold member" = "كن عضوا ذهبيا";
+"Payment Success" = "الدفع الناجح";
+"Close" = "قريب";
+"Between 18 to 70" = "بين 18 و 70";
+"Up to 100km away" = "ما يصل إلى 001 كم";
+"Between" = "بين";
+"to" = "إلى";
+"Update" = "تحديث";
+"About me" = "معلومات عنى";
+"My lifestyle" = "أسلوب حياتي";
+"Marriage goals" = "أهداف الزواج";
+"SEE WHO LIKES YOU" = "اكتشف من معجب بك";
+"Liked you" = "احبك";
+"People have liked you will appear here. Get swiping to increase your changes!" = "سيظهر لك الناس هنا. احصل على الضرب لزيادة التغييرات الخاصة بك!";
+"You" = "أنت";
+"Send a message" = "ارسل رسالة";
+"Messages" = "دردشاتك";
+"Matches" = "المتوافقون الجدد";
+"Block" = "حظر";
+"Report" = "تقرير";
+"Are you sure?" = "هل أنت واثق؟";
+"What would you like report?" = "ماذا تريد التقرير؟";
+"Report" = "ابلاغ";
+"Report account" = "الإبلاغ عن الحساب";
+"Please select a problem to report" = "الرجاء تحديد مشكلة للإبلاغ عنها";
+"Hate speech" = "خطاب الكراهية";
+"Scam" = "احتيال";
+"Violence" = "هنف";
+"Spam" = "رسائل إلكترونية مزعجة";
+"I just don't like it" = "أنا فقط لا أحب ذلك";
+"It's posting content that shouldn't be on HalalDating" = "إنه ينشر محتوى لا ينبغي أن يكون على HalalDating";
+"It's pretending to be someone else" = "إنه يتظاهر بأنه شخص آخر";
+"The may be under the age of 13" = "قد يكون عمره أقل من 13 عامًا";
+"Thanks for letting us know" = "شكرا لإعلامنا";
+"Profile preview" = "معاينة الملف الشخصي";
+"Share your story ❤️ win your 🎁" = "شارك قصتك ❤️ اكسب 🎁";
+"Setting" = "الاعدادات";
+"Safety tips" = "ارشادات الأمان";
+"Basic info" = "معلومات أساسية";
+"Name" = "اسمك";
+"Date of Birth" = "تاريخ الميلاد";
+"Education" = "التعليم";
+"Language" = "اللغة";
+"Islamic lifestyle" = "أسلوب حياة إسلامي";
+"Religiosity" = "التدين";
+"Praying" = "الصلاة";
+"Halal food" = "الطعام الحلال";
+"Alcohol" = "شرب الكحول";
+"Smoke" = "التدخين";
+"More about me" = "المزيد عن";
+"Height" = "الطول";
+"Marital status" = "الحالة الزوجية";
+"Kids" = "أطفال";
+"Marriage plan" = "خطة الزواج";
+"Workout" = "الرياضة";
+"Subscription" = "الاشتراك";
+"Terms & Conditions" = "البنود و الظروف";
+"Delete Account" = "حذف الحساب";
+"My Subscription" = "اشتراكي";
+"Plan name" = "اسم الخطة";
+"Status" = "حالة";
+"Payment mode" = "طريقة الدفع";
+"Card" = "بطاقة";
+"Date of purchase" = "تاريخ الشراء";
+"Expiry date" = "تاريخ انتهاء الصلاحية";
+"Please let us know why you're leaving us."  = "يرجى إخبارنا بسبب مغادرتك لنا.";
+"We are always looking for improve and welcome your honest feedback." = "نحن نبحث دائمًا عن التحسين ونرحب بتعليقاتك الصادقة.";
+"I met a partner on HalalDating" = "التقيت بشريك في HalalDating";
+"I met a partner elsewhere" = "التقيت بشريك في مكان آخر";
+"I want to take a break" = "أريد أن آخذ استراحة";
+"I did't like HalalDating" = "لم يعجبني HalalDating";
+"Other" = "آخر";
+"Type here.." = "أكتب هنا..";
+"Code" = "البلد";
+"Like Without Limit" = "اعجاب بلا حدود";
+"Recurring billing, cancel anytime" = "الفواتير المتكررة ، يمكنك الإلغاء في أي وقت.";
+"By tapping Continue, your payment will be charged to your account, and your subscription will automatically renew for the same package length at the same price until you cancel in your Account Settings at least 24 hour prior to the auto-renewal may be turned off by going to the user's Account Settings after purchase. By tapping Continue, you agree to our" = "من خلال النقر فوق متابعة ، سيتم خصم دفعتك من حسابك ، وسيتم تجديد اشتراكك تلقائيًا بنفس طول الحزمة بنفس السعر حتى تقوم بالإلغاء في إعدادات الحساب الخاصة بك قبل 24 ساعة على الأقل من التجديد التلقائي قد يتم إيقاف تشغيله بواسطة الذهاب إلى إعدادات حساب المستخدم بعد الشراء. بالنقر فوق متابعة ، فإنك توافق على";
+"Chat Info" = "معلومات الدردشة";
+"Add Users to Chat" = "أضف مستخدمين إلى الدردشة";
+"Leave Chat" = "اترك الدردشة";
+"Delete Chat" = "حذف الدردشة";
+"Logout" = "تسجيل خروج";
+"Delete" = "حذف";
+"App Info" = "معلومات التطبيق";
+"Create" = "خلق";
+"Done" = "فعله";
+"Finish" = "إنهاء";
+"Send" = "إرسال";
+"Save attachment" = "احفظ المرفق";
+"Forward" = "إلى الأمام";
+"Delivered to..." = "...سلمت ل";
+"Viewed by..." = "...شاهده ";
+"Save File" = "احفظ الملف";
+"Login to Chat error. Please relogin." = "خطأ في تسجيل الدخول إلى الدردشة. الرجاء إعادة تسجيل الدخول.";
+"Please enter your login \nand username" = "الرجاء إدخال معلومات تسجيل الدخول الخاصة بك \nواسم المستخدم";
+"Login" = "تسجيل الدخول";
+"Username" = "اسم المستخدم";
+"Use your email or alphanumeric characters in a range from 3 to 50. First character must be a letter." = "استخدم بريدك الإلكتروني أو الأحرف الأبجدية الرقمية في نطاق من 3 إلى 50. يجب أن يكون الحرف الأول حرفًا.";
+"Use alphanumeric characters and spaces in a range from 3 to 20. Cannot contain more than one space in a row." = "إلى 20. لا يمكن أن تحتوي على أكثر من مسافة واحدة في صف واحد.استخدم الأحرف الأبجدية الرقمية والمسافات في نطاق من 3";
+"Sign up error." = "خطأ في التسجيل.";
+"Save Login and Username for further sessions" = "حفظ تسجيل الدخول واسم المستخدم لمزيد من الجلسات";
+"Today" = "اليوم";
+"Yesterday" = "في الامس";
+"New Chat" = "دردشة جديدة";
+"Add Occupants" = "أضف شاغلين";
+"Get users errors" = "احصل على أخطاء المستخدمين";
+"Error getting dialog from server" = "خطأ في الحصول على مربع حوار من الخادم";
+"Error getting users dialog from server" = "خطأ في الحصول على مربع حوار المستخدمين من الخادم";
+"Please, choose at least one participant" = "من فضلك ، اختر مشارك واحد على الأقل";
+"No user with that name" = "لا يوجد مستخدم بهذا الاسم";
+"Send" = "إرسال";
+"Send message..." = "إرسال رسالة ...";
+"Failed to send a message" = "فشل في إرسال الرسال";
+"Load chat users errors" = "تحميل أخطاء مستخدمي الدردشة";
+"Attachment" = "المرفق";
+"You're all alone out here." = "أنت وحيد هنا.";
+"Unsupported dialog type" = "نوع الحوار غير مدعوم";
+"Wait for all attachments to upload" = "انتظر حتى يتم تحميل جميع المرفقات";
+"Message Delivered to" = "رسالة تسليمها ل";
+"Message Viewed by" = "تم عرض الرسالة بواسطة";
+"no one" = "لا احد";
+"1 member" = "عضو واحد";
+"members" = "أفراد";
+"Forward to" = "الي";
+"Public Group chat can be deleted only by owner" = "يمكن حذف الدردشة الجماعية العامة من قبل المالك فقط";
+"Application version:" = "إصدار التطبيق:";
+"is typing..." = "...يكتب";
+"are typing..." = "...يكتبون";
+"Chat Name" = "اسم الدردشة";
+"Must be in a range from 3 to 20 characters" = "يجب أن يكون في نطاق من 3 إلى 20 حرفًا";
+"Some parameter for Chat Settings is wrong. Please check the Chat Settings" = "بعض معلمات إعدادات الدردشة خاطئة. يرجى التحقق من إعدادات الدردشة";
+"Connection failed. Please check your internet connection." = "فشل الاتصال. الرجاء التحقق من اتصال الانترنت الخاص بك.";
+"No response received within reply timeout" = "لم يتم تلقي رد خلال مهلة الرد";
+"Server connection timeout" = "انتهت مهلة اتصال الخادم";
+"The uploaded file exceeds maximum file size (100MB)" = "يتجاوز حجم الملف الذي تم تحميله الحد الأقصى لحجم الملف (100 ميغا بايت)";
+"Disconnected… Please check your Internet connection!" = "غير متصل ... يرجى التحقق من اتصالك بالإنترنت!";
+"Allow" = "السماح";
+"Touch takes you back to the call %1$s" = "اللمس يعيدك إلى المكالمة %1$s";
+"Error" = "خطأ";
+"No internet connection" = "لا يوجد اتصال بالإنترنت";
+"Connection failed. Please check your internet connection." = "فشل الاتصال. الرجاء التحقق من اتصال الانترنت الخاص بك.";
+"You should allow Camera permission" = "يجب أن تسمح لك إذن الكاميرا";
+"You should allow Microphone permission" = "يجب أن تسمح بإذن الميكروفون";
+"Settings" = "إعدادات";
+"Pending" = "قيد الانتظار";
+"Closed" = "مغلق";
+"Incoming Audio Call" = "مكالمة صوتية واردة";
+"Incoming Video Call" = "مكالمة فيديو واردة";
+"Connect..." = "الاتصال...";
+"Checking..." = "تدقيق...";
+"Connected" = "متصل";
+"Disconnected" = "انقطع الاتصال";
+"Rejected" = "مرفوض";
+"No answer" = "لا اجابة";
+"Hung up" = "اغلق الخط في وجهي";
+"Video" = "فيديو";
+"Please enter country code" = "الرجاء إدخال رمز الدولة";
+"Please enter valid otp" = "الرجاء إدخال otp صالح";
+"Please enter name" = "الرجاء إدخال الاسم";
+"Please enter your date of birth" = "الرجاء ادخال تاريخ ميلادك";
+"Please choose option" = "الرجاء اختيار الخيار";
+"Allow access to your location" = "السماح بالوصول إلى موقعك";
+"Choose Allow all the time so you don't miss a single opportunity." = "اختر السماح طوال الوقت حتى لا تفوتك فرصة واحدة.";
+"Save" = "يحفظ";
+"/mo" = "/مو";
+"Summery" = "صيفي";
+"Reporting" = "الإبلاغ";
+"Description" = "وصف";
+"You are now gold member." = "أنت الآن عضو ذهبي.";
+"You are now premium member." = "أنت الآن عضو مميز.";
+"Select country" = "حدد الدولة";
+"No matches" = "لا يوجد تطابق";
+"Best offer" = "العرض الافضل";
+"Save 50%" = "وفر 50%";
+"Save 70%" = "وفر 70%";
+"Change Language" = "تغيير اللغة";
+"Get Likes" = "احصل على إعجابات";
+"No likes yet?" = "لا توجد اعجابات؟";
+"No likes yet" = "لا توجد اعجابات؟";
+"Find your partner faster with premium membership" = "اعثر على شريك حياتك اسرع فى الباقة المميزة";
+"Language I speak" = "اللغة التي أتحدثها";
+"Week" = "اسبوع";
+"Month" = "شهر";
+"3 months" = "3 شهور";
+"6 months" = "6 الشهور";
+"$14.99/mo" = "$14.99/شهر";
+"$9.99/mo" = "$9.99/شهر";
+"Subscribe now" = "اشترك الان";
+"With premium membership you get marry faster." = "مع الباقة المميزة ستتزوج اسرع";
+"The Best Islamic marriage app worldwide  We have a lot of successful marriage stories and we wish you will be the next story" = "افضل تطبيق زواج اسلامى فى جميع انحاء العالم نحن لدينا الكثير من قصص الزواج الناجحة ونتمنى تكون انت القصة التالية";
+"Welcome to halaldating" = "اهلا بك فى تطبيق التعارف الحلال  ";
+"Welcome" = "اهلا بك";
+"km" = "كم";
+"Unmatch" = "عدم توافق";
+"Korean" = "الكورية";
+"Russian" = "الروسية";
+"Japanese" = "ليابانية";
+"Irish" = "إيرلندي";
+"Italian" = "إيطالي";
+"Somali" = "صومالي";
+"Serbian" = "الصربية";
+"Chinese" = "صينى";
+"Latin" = "لاتيني";
+"Swedish" = "السويدية";
+"Amharic" = "الأمهرية";
+"Portuguese" = "البرتغالية";
+"It’s time to start swiping again." = "حان الوقت لبدء الضرب مرة أخرى.";
+"Igbo" = "الإيغبو";
+"Kannada" = "الكانادا";
+"Telugu" = "التيلجو";
+"Gujarati" = "الغوجاراتية";
+"Thai" = "التايلاندية";
+"Khmer" = "الخمير";
+"Slovenian" = "السلوفينية";
+"Kazakh" = "الكازاخستانية";
+"Ukrainian" = "الأوكرانية";
+"Kurdish" = "كردي";
+"Romanian" = "روماني";
+"Successful Marriages Photos" = "صور الزيجات الناجحة";
+"New Messages" = "رسائل جديدة";
+"Arabic" = "عربي";
+"Welcome to halaldating 😊" = "مرحبا بكم في halaldating 😊";
+"#1 Marriage App For Muslims 🥇" = " # 1 تطبيق زواج للمسلمين 🥇";
+"You can see our successful stories" = " يمكنك أن ترى قصصنا الناجحة";
+"You are here to get married only 💍 so if you here for any other reason your account will be deactivated permanently." = " أنت هنا للزواج فقط 💍  لذلك إذا كنت هنا لأي سبب آخر ، فسيتم إلغاء تنشيط حسابك بشكل دائم.";
+"Please be respectful to each other: We are here a family helping each other to get safe and happy Islamic marriage." = " يرجى احترام بعضكم البعض:نحن هنا عائلة نساعد بعضنا البعض في الحصول على زواج إسلامي آمن وسعيد.";
+"Please read carefully safety tips for your safety:This will explain to you what are the steps of safe dating." = " يرجى قراءة إرشادات الأمان بعناية من أجل سلامتك: هذا سوف يشرح لك ما هي خطوات المواعدة الآمنة.";
+"Please report users with bad attitude:there is report option on the top of chat and you can use it to report any user you are not comfortable with." = "الرجاء الابلاغ عن المستخدمين ذوي السلوك السيئ: يوجد خيار ابلاغ في الجزء العلوي من الدردشة ويمكنك استخدامه للإبلاغ عن أي مستخدم لا تشعر بالراحة معه.";
+"You are here to get married only 💍 \nso if you here for any other
+reason your account will be deactivated permanently. \n\nPlease
+be respectful to each other: \nWe are here a family helping each
+other to get safe and happy Islamic marriage. \n\nPlease read
+carefully safety tips for your safety: \nThis will explain to you
+what are the steps of safe dating. \n\nPlease report users with
+bad attitude: \nthere is report option on the top of chat and you
+can use it to report any user you are not comfortable with." = " أنت هنا للزواج فقط 💍\n لذلك إذا كنت هنا لأي سبب آخر ، فسيتم إلغاء تنشيط حسابك بشكل دائم.\n\nيرجى احترام بعضكم البعض: \n نحن هنا عائلة نساعد بعضنا البعض في الحصول على زواج إسلامي آمن وسعيد.\n\nيرجى قراءة إرشادات الأمان بعناية من أجل سلامتك:\n هذا سوف يشرح لك ما هي خطوات المواعدة الآمنة.\n\nالرجاء الابلاغ عن المستخدمين ذوي السلوك السيئ:\n يوجد خيار ابلاغ في الجزء العلوي من الدردشة ويمكنك استخدامه للإبلاغ عن أي مستخدم لا تشعر بالراحة معه.";
+"Sorry! there are no profiles matching your search." = "آسف لا توجد ملفات شخصية مطابقة لبحثك";
+"DD / MM / YYYY" = "YYYY / MM / DD";
+"Hello" = "أهلا";
+"OK" = "نعم";
+"Ok" = "نعم";
+"Choose Image" = "اختر صورة";
+"Camera" = "آلة تصوير";
+"Gallery" = "صالة عرض";
+"Send a message" = "ارسل رسالة";
+"Online" = "متصل";
+"Expired" = "منتهي الصلاحية";
+"Your session has timed out." = "انقضت مهلة جلستك.";
+"You got a new message" = "لقد تلقيت رسالة جديدة";
+"is calling you" = "يتصل بك";
+"Please select language" = "الرجاء تحديد اللغة";
+"We are reviewing your profile. Please wait to get approved." = "نحن نراجع ملفك الشخصي. يرجى الانتظار للحصول على الموافقة.";
+"Okay" = "تمام";
+
+"Select Relationship Status" = "حدد حالة العلاقة";
+"Relationship Status" = "الحالة الاجتماعية";
+"Online Now" = "متواجد حاليا";
+"Visible" = "مرئي";
+"Anyone can see your profile" = "يمكن لأي شخص رؤية ملف التعريف الخاص بك";
+"Invisible" = "غير مرئى";
+"Your profile will not show on search. But you still able to like, match and chat" = "ملفك الشخصي لن يظهر في البحث. لكنك لا تزال قادرًا على الإعجاب والمطابقة والدردشة.";
+"no" = "رقم";
+"yes" = "نعم";
+"Sorry! there are no profiles matching your search." = "آسف! لا توجد ملفات تعريف مطابقة لبحثك.";
+"Profile status has been changed successfully" = "تم تغيير حالة الملف الشخصي بنجاح";
+"any" = "أي";
+"Any" = "أي";
+"No preference" = "بدون تفضيل";
+"Account deleted successfully." = "تم حذف الحساب بنجاح.";
