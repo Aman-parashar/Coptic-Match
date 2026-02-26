@@ -8,6 +8,7 @@
 import UIKit
 import Quickblox
 import Alamofire
+import FirebaseFirestore
 
 class ChatVC: UIViewController {
     
@@ -18,7 +19,7 @@ class ChatVC: UIViewController {
     var arr:[[String:Any]] = []
     var timer = Timer()
     var isCallFirstTime = true
-    
+    var inboxListener: ListenerRegistration?
     //MARK: - @IBOutlet
     @IBOutlet weak var heightCollview: NSLayoutConstraint!
     @IBOutlet weak var collview: UICollectionView!
@@ -49,13 +50,19 @@ class ChatVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         //getAllDialogs()
-        getChatRoomAPI()
-        self.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
-            self.getChatRoomAPI()
-            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier_RefreshChatBadge"), object: nil)
-        })
+        listenForConversations()
+        //getChatRoomAPI()
+        // self.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+        //     self.getChatRoomAPI()
+        //     NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier_RefreshChatBadge"), object: nil)
+        // })
         
         apiCall_checkSubscription()
+        
+        // Catch-all profile sync for existing logged-in users
+        if let userModel = Login_LocalDB.getLoginUserModel().data {
+            AppHelper.syncUserToFirestore(userModel: Login_LocalDB.getLoginUserModel())
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshUI(notification:)), name: Notification.Name("NotificationIdentifier_RefreshInboxUI"), object: nil)
         
@@ -76,6 +83,7 @@ class ChatVC: UIViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("NotificationIdentifier_RefreshChatBadge"), object: nil)
         
         //
+         inboxListener?.remove() 
         timer.invalidate()
     }
     func setLanguageUI() {
@@ -99,7 +107,7 @@ class ChatVC: UIViewController {
     @objc func refreshUI(notification: Notification) {
         
         //getAllDialogs()
-        getChatRoomAPI()
+        //getChatRoomAPI()
     }
 
     func setupUI() {
@@ -109,6 +117,66 @@ class ChatVC: UIViewController {
         viewTopview.layer.borderColor = UIColor(named: "greenMate")?.cgColor
         viewTopview.layer.cornerRadius = viewTopview.frame.height/2
     }
+
+func listenForConversations() {
+    let userModel = Login_LocalDB.getLoginUserModel()
+    let userId = "\(userModel.data?.id ?? 0)"
+    let db = Firestore.firestore()
+
+    inboxListener = db.collection("users")
+        .document(userId)
+        .collection("conversations")
+        .order(by: "timestamp", descending: true)
+        .addSnapshotListener { [weak self] snapshot, error in
+            guard let self = self else { return }
+            guard let documents = snapshot?.documents else { return }
+
+            let allConversations = documents.map { $0.data() }
+            
+            // Match placeholder is set in MatchVC.swift
+            let matchPlaceholder = "You matched! Say hi 👋"
+            
+            self.arrDisableRoom = allConversations.filter { 
+                let lastMsg = $0["last_msg_info"] as? [String: Any]
+                let msg = lastMsg?["message"] as? String
+                // If message is the placeholder OR there's no message info, it's a match
+                return msg == matchPlaceholder || lastMsg == nil || msg == nil || msg?.isEmpty == true
+            }
+            
+            self.arrInbox = allConversations.filter { 
+                let lastMsg = $0["last_msg_info"] as? [String: Any]
+                let msg = lastMsg?["message"] as? String
+                // If it has a real message (not the placeholder), it belongs in the inbox
+                return msg != nil && !msg!.isEmpty && msg != matchPlaceholder
+            }
+
+            // --- Migration Check ---
+            if !UserDefaults.standard.bool(forKey: "is_firestore_inbox_migrated") {
+                self.migrateExistingConversationsToFirestore()
+            }
+            // --- End Migration Check ---
+print("allConversations \(allConversations)",UserDefaults.standard.bool(forKey: "is_firestore_inbox_migrated"),)
+            DispatchQueue.main.async {
+                // Handle UI visibility layout
+                if self.arrDisableRoom?.count ?? 0 > 0 {
+                    self.heightCollview.constant = 100
+                    self.heightTopView.constant = 0
+                } else {
+                    self.heightCollview.constant = 0
+                    self.heightTopView.constant = 100
+                }
+                
+                self.tblList.reloadData()
+                self.collview.reloadData()
+                self.isCallFirstTime = false
+                AppHelper.hideLinearProgress()
+                
+                // Refresh global chat badge
+                NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier_RefreshChatBadge"), object: nil)
+            }
+        }
+}
+
 //    func getAllDialogs() {
 //
 //        //get dialogs that have been updated during the last month and sort by the date of the last message in descending order
@@ -324,13 +392,35 @@ class ChatVC: UIViewController {
 //    }
     
     func setDate(strDate:String) -> String {
+        let formats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss"
+        ]
         
-        let formattedDate = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "yyyy-MM-dd HH:mm:ss", date: strDate)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
-        let getTime = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd HH:mm:ss", toFormat: "h:mm a", date: formattedDate)
-        let getDate = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd HH:mm:ss", toFormat: "MM-dd-yyyy", date: formattedDate)
-        let myDate = AppHelper.stringToDate(strDate: formattedDate, strFormate: "yyyy-MM-dd HH:mm:ss")
+        var parsedDate: Date?
+        for format in formats {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: strDate) {
+                parsedDate = date
+                break
+            }
+        }
         
+        guard let myDate = parsedDate else { return "" }
+        
+        let displayTimeFormatter = DateFormatter()
+        displayTimeFormatter.dateFormat = "h:mm a"
+        let getTime = displayTimeFormatter.string(from: myDate)
+        
+        let displayDateFormatter = DateFormatter()
+        displayDateFormatter.dateFormat = "MM-dd-yyyy"
+        let getDate = displayDateFormatter.string(from: myDate)
         
         if Calendar.current.isDateInToday(myDate) {
             return "\(getTime)"
@@ -363,14 +453,13 @@ class ChatVC: UIViewController {
         
         AF.request(get_chat_room, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             
-            print(response)
             
             if let json = response.value as? [String:Any] {
                 
                 if json["status"] as? String == "Success" {
                     
                     self.arrInbox = (json["data"] as? [String:Any])?["room"] as? [[String:Any]]
-                    print(self.arrInbox)
+                 
                     self.arrDisableRoom = (json["data"] as? [String:Any])?["disable_room"] as? [[String:Any]]
                     
                     //
@@ -386,36 +475,98 @@ class ChatVC: UIViewController {
                     
                     //
                     self.isCallFirstTime = false
-                    
-                    //
-//                    if ManageSubscriptionInfo.getSubscriptionModel().data?.is_buy_valid_subscription_new == "0" || (ManageSubscriptionInfo.getSubscriptionModel().data?.is_buy_valid_subscription_new == "1" && ManageSubscriptionInfo.getSubscriptionModel().data?.type == "Swipe"){
-//
-//                        if self.arrDisableRoom?.count ?? 0 > 0 {
-//
-//                            self.imgTopviewHeart.isHidden = true
-//                            self.lblTopviewCount.isHidden = false
-//                            self.lblTopviewCount.text = "\(self.arrDisableRoom?.count ?? 0)"
-//                        } else {
-//                            self.imgTopviewHeart.isHidden = false
-//                            self.lblTopviewCount.isHidden = true
-//                        }
-//                        self.heightCollview.constant = 0
-//                        self.heightTopView.constant = 100
-//                    } else {
-//                        if self.arrDisableRoom?.count ?? 0 > 0 {
-//                            self.heightCollview.constant = 100
-//                        } else {
-//                            self.heightCollview.constant = 0
-//                        }
-//
-//                        self.heightTopView.constant = 0
-//                    }
-                    
                 }
             }
             AppHelper.hideLinearProgress()
         }
     }
+
+    func migrateExistingConversationsToFirestore() {
+        if NetworkReachabilityManager()!.isReachable == false { return }
+        
+        // Flag as migrated immediately to prevent multiple sync attempts while network is in progress
+        UserDefaults.standard.set(true, forKey: "is_firestore_inbox_migrated")
+        
+        let userModel = Login_LocalDB.getLoginUserModel()
+        let userId = "\(userModel.data?.id ?? 0)"
+        let headers:HTTPHeaders = ["Accept":"application/json", "Authorization":userModel.data?.api_token ?? ""]
+        let db = Firestore.firestore()
+
+        AF.request(get_chat_room, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let json = response.value as? [String:Any], json["status"] as? String == "Success" {
+                let rooms = (json["data"] as? [String:Any])?["room"] as? [[String:Any]] ?? []
+                let disabledRooms = (json["data"] as? [String:Any])?["disable_room"] as? [[String:Any]] ?? []
+                let allRooms = rooms + disabledRooms
+                print("Total rooms to migrate: \(allRooms.count)")
+                
+                if let firstRoom = allRooms.first {
+                    print("First room data keys: \(firstRoom.keys)")
+                    print("room_id value: \(String(describing: firstRoom["room_id"])) type: \(type(of: firstRoom["room_id"] ?? "nil"))")
+                }
+
+                let batch = db.batch()
+                
+                for room in allRooms {
+                    let senderId = room["sender_id"] as? Int ?? 0
+                    let receiverId = room["reciver_id"] as? Int ?? 0
+                    
+                    // Generate roomId locally for Firestore
+                    let roomId = AppHelper.getRoomId(id1: senderId, id2: receiverId)
+                    
+                    if senderId == 0 || receiverId == 0 { 
+                        print("⚠️ Skipping room with invalid IDs: \(room)")
+                        continue 
+                    }
+                    
+                    var mutableRoom = room
+                    
+                    // -- Ensure Firebase-specific keys exist if missing from old backend --
+                    if mutableRoom["count_unred_count"] == nil {
+                        mutableRoom["count_unred_count"] = 0
+                    }
+                    if mutableRoom["last_msg_info"] == nil {
+                        // If it's a new match with no messages, old backend might have nil last_msg_info
+                        // We set it to nil or a placeholder to match our categorization logic
+                        mutableRoom["last_msg_info"] = nil 
+                    }
+
+                    // Convert updated_at to a Date object for the 'timestamp' field
+                    if let updatedAt = room["updated_at"] as? String {
+                        let formats = ["yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", "yyyy-MM-dd HH:mm:ss"]
+                        let formatter = DateFormatter()
+                        formatter.locale = Locale(identifier: "en")
+                        var parsedDate: Date?
+                        
+                        for format in formats {
+                            formatter.dateFormat = format
+                            if let date = formatter.date(from: updatedAt) {
+                                parsedDate = date
+                                break
+                            }
+                        }
+                        mutableRoom["timestamp"] = parsedDate ?? Date()
+                    } else {
+                        mutableRoom["timestamp"] = FieldValue.serverTimestamp()
+                    }
+                    
+                    let docRef = db.collection("users").document(userId).collection("conversations").document(roomId)
+                    batch.setData(mutableRoom, forDocument: docRef, merge: true)
+                }
+                
+                batch.commit { error in
+                    if let error = error {
+                        print("❌ Firestore batch commit failed:", error)
+                        UserDefaults.standard.set(false, forKey: "is_firestore_inbox_migrated") // Reset on failure
+                    } else {
+                        print("✅ Firestore migration success")
+                    }
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: "is_firestore_inbox_migrated") // Reset on failure
+            }
+        }
+    }
+
     
     func apiCall_checkSubscription()  {
         if NetworkReachabilityManager()!.isReachable == false
@@ -435,7 +586,6 @@ class ChatVC: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 AppHelper.hideLinearProgress()
                 let dicsResponseFinal = response.replaceNulls(with: "")
-                print(dicsResponseFinal as Any)
                 
                 let checkSubscriptionModel = CheckSubscriptionModel(JSON: dicsResponseFinal as! [String : Any])!
                 if checkSubscriptionModel.code == 200{
@@ -563,7 +713,6 @@ class ChatVC: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 AppHelper.hideLinearProgress()
                 let dicsResponseFinal = response.replaceNulls(with: "")
-                print(dicsResponseFinal as Any)
                 
                 let userListModel = UserModel(JSON: dicsResponseFinal as! [String : Any])!
                 if userListModel.code == 200{
@@ -593,14 +742,27 @@ class ChatVC: UIViewController {
     
 
     func timeAgoSinceDate(_ dateString: String) -> String {
-        // Define the date formatter to handle the full date format including microseconds and "Z"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Parse as UTC
+        let formats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss"
+        ]
         
-        // Convert the string to a Date object
-        guard let date = dateFormatter.date(from: dateString) else { return "Invalid Date" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        var parsedDate: Date?
+        for format in formats {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: dateString) {
+                parsedDate = date
+                break
+            }
+        }
+        
+        guard let date = parsedDate else { return "" }
         
         let now = Date()
         let calendar = Calendar.current
@@ -697,12 +859,19 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource
             
             let vc = OnetoOneChatVC(nibName: "OnetoOneChatVC", bundle: nil)
 
-            vc.strReceiverId = "\(self.arrInbox?[indexPath.row]["reciver_id"] as? Int ?? 0)"
-            if let room_id = self.arrInbox?[indexPath.row]["room_id"] as? String {
-                vc.strRoomId = room_id
-            } else {
-                vc.strRoomId = "no"//if there is no room created then pass "no" to get empty array with 200 response. As Passing empty string ll not give 200 response
+            let senderId = self.arrInbox?[indexPath.row]["sender_id"] as? Int ?? 0
+            let receiverId = self.arrInbox?[indexPath.row]["reciver_id"] as? Int ?? 0
+            
+            vc.strReceiverId = "\(receiverId)"
+            vc.strRoomId = AppHelper.getRoomId(id1: senderId, id2: receiverId)
+            
+            // Pass legacy room_id for API calls
+            if let legacyId = self.arrInbox?[indexPath.row]["room_id"] as? Int {
+                vc.strLegacyRoomId = "\(legacyId)"
+            } else if let legacyId = self.arrInbox?[indexPath.row]["room_id"] as? String {
+                vc.strLegacyRoomId = legacyId
             }
+            
             vc.fromSayHiBtn = true
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
@@ -728,12 +897,19 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource
         
         let vc = OnetoOneChatVC(nibName: "OnetoOneChatVC", bundle: nil)
 
-        vc.strReceiverId = "\(arrInbox?[indexPath.row]["reciver_id"] as? Int ?? 0)"
-        if let room_id = arrInbox?[indexPath.row]["room_id"] as? String {
-            vc.strRoomId = room_id
-        } else {
-            vc.strRoomId = "no"//if there is no room created then pass "no" to get empty array with 200 response. As Passing empty string ll not give 200 response
+        let senderId = arrInbox?[indexPath.row]["sender_id"] as? Int ?? 0
+        let receiverId = arrInbox?[indexPath.row]["reciver_id"] as? Int ?? 0
+        
+        vc.strReceiverId = "\(receiverId)"
+        vc.strRoomId = AppHelper.getRoomId(id1: senderId, id2: receiverId)
+        
+        // Pass legacy room_id for API calls
+        if let legacyId = self.arrInbox?[indexPath.row]["room_id"] as? Int {
+            vc.strLegacyRoomId = "\(legacyId)"
+        } else if let legacyId = self.arrInbox?[indexPath.row]["room_id"] as? String {
+            vc.strLegacyRoomId = legacyId
         }
+        
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -794,12 +970,19 @@ extension ChatVC:UICollectionViewDataSource, UICollectionViewDelegateFlowLayout 
             
             let vc = OnetoOneChatVC(nibName: "OnetoOneChatVC", bundle: nil)
 
-            vc.strReceiverId = "\(arrDisableRoom?[indexPath.row]["reciver_id"] as? Int ?? 0)"
-            if let room_id = arrDisableRoom?[indexPath.row]["room_id"] as? String {
-                vc.strRoomId = room_id
-            } else {
-                vc.strRoomId = "no"//if there is no room created then pass "no" to get empty array with 200 response. As Passing empty string ll not give 200 response
+            let senderId = arrDisableRoom?[indexPath.row]["sender_id"] as? Int ?? 0
+            let receiverId = arrDisableRoom?[indexPath.row]["reciver_id"] as? Int ?? 0
+            
+            vc.strReceiverId = "\(receiverId)"
+            vc.strRoomId = AppHelper.getRoomId(id1: senderId, id2: receiverId)
+            
+            // Pass legacy room_id for API calls
+            if let legacyId = self.arrDisableRoom?[indexPath.row]["room_id"] as? Int {
+                vc.strLegacyRoomId = "\(legacyId)"
+            } else if let legacyId = self.arrDisableRoom?[indexPath.row]["room_id"] as? String {
+                vc.strLegacyRoomId = legacyId
             }
+            
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }

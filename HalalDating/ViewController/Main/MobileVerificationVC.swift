@@ -186,8 +186,9 @@ class MobileVerificationVC: UIViewController {
                     
                     if userListModel_.data?.update_profile ?? "" == "1" {
                         
-                        if let userListModel_ = UserModel(JSON: dicsResponseFinal as! [String : Any])!.toJSONString() {
-                            Login_LocalDB.saveLoginInfo(strData: userListModel_)
+                        if let userListModelString = UserModel(JSON: dicsResponseFinal as! [String : Any])?.toJSONString() {
+                            Login_LocalDB.saveLoginInfo(strData: userListModelString)
+                            AppHelper.syncUserToFirestore(userModel: userListModel_)
                         }
                         
                         //self.signUpInQB()

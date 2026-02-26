@@ -12,7 +12,7 @@ import UIKit
 import SDWebImage
 import SafariServices
 import MBProgressHUD
-import FirebaseCoreInternal
+import FirebaseFirestore
 import Alamofire
 
 //let progressView_linear = MDCProgressView()
@@ -610,6 +610,27 @@ class AppHelper: NSObject
         }
     }
 
+    class func syncUserToFirestore(userModel: UserModel) {
+        guard let data = userModel.data else { return }
+        let db = Firestore.firestore()
+        
+        let userId = "\(data.id)"
+        let userData: [String: Any] = [
+            "name": data.name,
+            "selfie": data.user_image.first?.image ?? "",
+            "id": data.id,
+            "fcm_token": UserDefaults.standard.string(forKey: "fcm_devicetoken") ?? ""
+        ]
+        
+        // merge: true ensures we don't delete existing conversation sub-collections
+        db.collection("users").document(userId).setData(userData, merge: true)
+    }
+
+    class func getRoomId(id1: Int, id2: Int) -> String {
+        let first = min(id1, id2)
+        let second = max(id1, id2)
+        return "room_\(first)_\(second)"
+    }
 }
 
 class ImageLoader

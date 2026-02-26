@@ -42,7 +42,7 @@ var kImageBaseURL = "https://logosdatingapp.s3.amazonaws.com/"
 //"https://halal-dating.com/test-app/public/uploads/"
 
 
-var kBaseURL = "https://coptic-match.com/api/"
+var kBaseURL = "https://coptic-match.com/stage/api/"
 //"https://coptic-match.com/stage/api/"
 //"https://coptic-match.com/api/"
 // Local - "http://192.168.1.56:8000/api/"

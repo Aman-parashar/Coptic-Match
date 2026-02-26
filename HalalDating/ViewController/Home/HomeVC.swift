@@ -473,7 +473,6 @@ class HomeVC: UIViewController {
                 self.isFetchingNextPage = false
 
                 let dicsResponseFinal = response.replaceNulls(with: "")
-                print("Response: ", dicsResponseFinal as Any)
 
                 let userListModel = GetNearUserResponse(JSON: dicsResponseFinal as! [String : Any])!
                 if userListModel.code == 200{
@@ -1003,9 +1002,7 @@ class HomeVC: UIViewController {
 //                    AppHelper.returnTopNavigationController().view.makeToast(json["message"] as? String)
 //                    self.navigationController?.popViewController(animated: true)
                     self.view.makeToast(json["message"] as? String)
-                    print(json["message"] as? String)
                 } else {
-                    print(json["message"] as? String)
                 }
             }
             
@@ -1070,7 +1067,6 @@ class HomeVC: UIViewController {
         
         AF.request(a_block, method: .post, parameters: dicParams, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             
-            print(response)
             AppHelper.hideLinearProgress()
             
             if let json = response.value as? [String:Any] {
@@ -1778,9 +1774,7 @@ extension HomeVC: KolodaViewDataSource {
     func kolodaNumberOfCards(_ koloda: Koloda.KolodaView) -> Int {
         let cardCount = self.arrUserList.count
         
-        print("Card Count: \(cardCount)")
-        print("Current page: \(currentPage)")
-        print("Current Index: \(koloda.currentCardIndex)")
+     
         
         // Prefetch when we're close to end, but guard against duplicate requests
         if cardCount > 0 && cardCount - koloda.currentCardIndex <= 8 && currentPage < last_page && !isFetchingNextPage {

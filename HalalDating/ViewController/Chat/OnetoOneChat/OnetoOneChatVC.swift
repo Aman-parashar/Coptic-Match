@@ -10,6 +10,7 @@ import IQKeyboardManagerSwift
 import Popover
 //import Quickblox
 //import QuickbloxWebRTC
+import FirebaseFirestore
 import UserNotifications
 import Alamofire
 
@@ -56,15 +57,17 @@ class OnetoOneChatVC: UIViewController {
     var strReportType = ""
     var popover = Popover()
     var strRoomId:String = ""
+    var strLegacyRoomId:String = ""
     var strReceiverId:String = ""
     var isCallFirstTime = true
     var timer = Timer()
+    var messageListener: ListenerRegistration?
     var intMsgCount = 0
     var dictOpponentUserData:UserData?
     var delegate:ProfileDetails?
     
     var fromSayHiBtn = false
-    
+    var isOnline = false
     //EDIT
     //    var dictReceiver:QBChatDialog?
     //    var arrMsgs:[QBChatMessage]?
@@ -114,6 +117,17 @@ class OnetoOneChatVC: UIViewController {
         super.viewDidLoad()
         registerCell()
         
+        // --- Standardize strRoomId flow ---
+        let myId = Login_LocalDB.getLoginUserModel().data?.id ?? 0
+        let receiverId = Int(strReceiverId) ?? 0
+        
+        // If the room ID is missing or invalid, generate it deterministically
+        if strRoomId.isEmpty || strRoomId == "no" {
+            strRoomId = AppHelper.getRoomId(id1: myId, id2: receiverId)
+        }
+        print("Using Firestore Room ID: \(strRoomId)")
+        // ---------------------------------
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -125,7 +139,7 @@ class OnetoOneChatVC: UIViewController {
         //QBRTCClient.instance().add(self)
         
         setupUI()
-        self.getMessagesAPI()
+        // self.getMessagesAPI() // Removed to prevent UI inconsistency with Firestore listener
         getUserDetailsAPI()
         
         if fromSayHiBtn {
@@ -143,10 +157,11 @@ class OnetoOneChatVC: UIViewController {
         IQKeyboardManager.shared.isEnabled = false
         IQKeyboardManager.shared.enableAutoToolbar = false
         
-        self.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
-            self.getMessagesAPI()
-        })
-        
+//        self.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+//            self.getMessagesAPI()
+//        })
+        self.listenForMessages()
+        self.markConversationAsRead()
         //EDIT
         //groupDialog = QBChatDialog(dialogID: dictReceiver?.id, type: .group)
         
@@ -154,8 +169,10 @@ class OnetoOneChatVC: UIViewController {
         //makeConnection()
         //getChatHistory()
         
-        //EDIT
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("JoinDialogAgain"), object: nil)
+        // Handle App Background/Foreground
+        NotificationCenter.default.addObserver(self, selector: #selector(markuserOffline), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(markConversationAsRead), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier_RefreshChatBadge"), object: nil)
     }
     
@@ -165,7 +182,8 @@ class OnetoOneChatVC: UIViewController {
         //
         //        }
         //
-        //        NotificationCenter.default.removeObserver(self, name: Notification.Name("JoinDialogAgain"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
         
         //
         
@@ -173,6 +191,8 @@ class OnetoOneChatVC: UIViewController {
         timer.invalidate()
         
         //
+        markuserOffline()
+        messageListener?.remove()
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardManager.shared.enableAutoToolbar = true
         
@@ -284,13 +304,35 @@ class OnetoOneChatVC: UIViewController {
     }
     
     func setDate(strDate:String) -> String {
+        let formats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss"
+        ]
         
-        let formattedDate = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "yyyy-MM-dd HH:mm:ss", date: strDate)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
-        let getTime = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd HH:mm:ss", toFormat: "h:mm a", date: formattedDate)
-        let getDate = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd HH:mm:ss", toFormat: "MM-dd-yyyy", date: formattedDate)
-        let myDate = AppHelper.stringToDate(strDate: formattedDate, strFormate: "yyyy-MM-dd HH:mm:ss")
+        var parsedDate: Date?
+        for format in formats {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: strDate) {
+                parsedDate = date
+                break
+            }
+        }
         
+        guard let myDate = parsedDate else { return "" }
+        
+        let displayTimeFormatter = DateFormatter()
+        displayTimeFormatter.dateFormat = "h:mm a"
+        let getTime = displayTimeFormatter.string(from: myDate)
+        
+        let displayDateFormatter = DateFormatter()
+        displayDateFormatter.dateFormat = "MM-dd-yyyy"
+        let getDate = displayDateFormatter.string(from: myDate)
         
         if Calendar.current.isDateInToday(myDate) {
             return "\(getTime)"
@@ -730,6 +772,7 @@ class OnetoOneChatVC: UIViewController {
         
         let userModel = Login_LocalDB.getLoginUserModel()
         
+        
         let headers:HTTPHeaders = ["Accept":"application/json",
                                    "Authorization":userModel.data?.api_token ?? ""]
         
@@ -824,204 +867,304 @@ class OnetoOneChatVC: UIViewController {
         {
             return
         }
-        
+        let db = Firestore.firestore()
         let userModel = Login_LocalDB.getLoginUserModel()
-        
-        var dicParams:[String:Any] = ["message":text,
-                                      "reciver_id":strReceiverId,
-                                      "sender_name":userModel.data?.name ?? "",
-                                      "is_buy_valid_subscription":dictOpponentUserData?.is_buy_valid_subscription_new ?? ""]
-        
-        var dictRoomInfo:[String:Any]?
-        if dictOpponentUserData?.room_info.count != 0 {
-            dictRoomInfo = dictOpponentUserData?.room_info[0]
-        }
-        
-        if let value = dictRoomInfo?["is_both_like_count"] as? Int {
-            dicParams["is_both_like_count"] = value
-        } else {
-            dicParams["is_both_like_count"] = 0//if there is no room created then pass 0
-        }
-        
-        //AppHelper.showLinearProgress()
-        
-        
-        
-        let headers:HTTPHeaders = ["Accept":"application/json",
-                                   "Authorization":userModel.data?.api_token ?? ""]
-        
-        AF.request(send_chat_msg, method: .post, parameters: dicParams, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+        fetchOtherUserStatus { [weak self] isOnline in
+            guard let self = self else { return }
+            self.isOnline = isOnline
             
-            print(response)
+            var dicParams:[String:Any] = ["message":text,
+                                          "reciver_id":self.strReceiverId,
+                                          "sender_name":userModel.data?.name ?? "",
+                                          "is_online" : self.isOnline,
+                                          "is_buy_valid_subscription":self.dictOpponentUserData?.is_buy_valid_subscription_new ?? ""]
+            print(
+                dicParams,"sxnkjnxclac")
             
-            if let json = response.value as? [String:Any] {
-                
-                if json["status"] as? String == "Success" {
-                    
-                    self.txtMessage.text = ""
-                    
-                    //
-                    self.strRoomId = (json["data"] as? [String:Any])?["room_id"] as? String ?? ""
-                    //
-                    /*self.getMessagesAPI()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.scrollToBottom()
-                    }*/
-                    
-                    //
-                    self.arrMessages = (json["data"] as? [String:Any])?["messages"] as? [[String:Any]]
-                    
-                    self.filteredMessages.removeAll()
-                    
-                    if let messages = self.arrMessages {
-                        for message in messages {
-
-                            if let index = self.filteredMessages.firstIndex(where: {
-                                self.convertDateString($0["created_at"] as? String ?? "") ==
-                                self.convertDateString(message["created_at"] as? String ?? "")
-                            }) {
-
-                                if var existingMessages = self.filteredMessages[index]["messages"] as? [[String: Any]] {
-
-                                    existingMessages.append(message)
-                                    self.filteredMessages[index]["messages"] = existingMessages
-                                }
-                            } else {
-
-                                self.filteredMessages.append([
-                                    "created_at": message["created_at"] as? String ?? "",
-                                    "messages": [message]
-                                ])
-                            }
-                        }
-                    }
-
-                    
-                    self.tblList.reloadData()
-                    
-                    if self.isCallFirstTime {
-                        self.scrollToBottom()
-                    } else {
-                        
-                        if self.intMsgCount != self.arrMessages?.count {
-                            self.scrollToBottom()
-                        }
-                    }
-                    
-                    self.intMsgCount = self.arrMessages?.count ?? 0
-                    self.isCallFirstTime = false
-                }
+            var dictRoomInfo:[String:Any]?
+            if self.dictOpponentUserData?.room_info.count != 0 {
+                dictRoomInfo = self.dictOpponentUserData?.room_info[0]
             }
             
-            //AppHelper.hideLinearProgress()
+            if let value = dictRoomInfo?["is_both_like_count"] as? Int {
+                dicParams["is_both_like_count"] = value
+            } else {
+                dicParams["is_both_like_count"] = 0 // if there is no room created then pass 0
+            }
+            
+            let headers:HTTPHeaders = ["Accept":"application/json",
+                                       "Authorization":userModel.data?.api_token ?? ""]
+            
+            AF.request(send_chat_msg, method: .post, parameters: dicParams, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                
+                print(response)
+                
+                if let json = response.value as? [String:Any] {
+                    
+                    if json["status"] as? String == "Success" {
+                        self.txtMessage.text = ""
+                        
+                        // -- Start Firestore Sync --
+                        let timestamp = ISO8601DateFormatter().string(from: Date())
+                        let serverTimestamp = FieldValue.serverTimestamp()
+                        
+                        let messageData: [String: Any] = [
+                            "sender_id": userModel.data?.id ?? 0,
+                            "reciver_id": Int(self.strReceiverId) ?? 0,
+                            "message": text,
+                            "created_at": timestamp
+                        ]
+                        
+                        // Write to Room Messages
+                        db.collection("rooms").document(self.strRoomId).collection("messages").addDocument(data: messageData)
+                        
+                        // Update Conversation Metadata for Both Users
+                        self.updateFirestoreConversation(text: text, timestamp: timestamp, serverTimestamp: serverTimestamp,isOnline: isOnline)
+                        // -- End Firestore Sync --
+                    }
+                }
+            }
         }
     }
     
     func convertDateString(_ dateString: String) -> String? {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" // Input format
-        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // Ensure the correct locale is used
+        let formats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss"
+        ]
         
-        // Convert the string to a Date object
-        if let date = inputFormatter.date(from: dateString) {
-            let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = "dd/MM/yyyy" // Output format
-            
-            // Return the formatted date string
-            return outputFormatter.string(from: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        var parsedDate: Date?
+        for format in formats {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: dateString) {
+                parsedDate = date
+                break
+            }
         }
         
-        // Return nil if the date conversion fails
-        return nil
+        guard let date = parsedDate else { return nil }
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "dd/MM/yyyy"
+        return outputFormatter.string(from: date)
     }
-
-    
-    func getMessagesAPI() {
+    func processMessages() {
+        self.filteredMessages.removeAll()
         
-        if NetworkReachabilityManager()!.isReachable == false
-        {
-            return
-        }
-        
-        if isCallFirstTime {
-            AppHelper.showLinearProgress()
-        }
-        
-        let userModel = Login_LocalDB.getLoginUserModel()
-        
-        
-        let headers:HTTPHeaders = ["Accept":"application/json",
-                                   "Authorization":userModel.data?.api_token ?? ""]
-        
-        
-        AF.request("\(get_chat_msg)?room%20id=\(strRoomId)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            
-            print(response)
-            
-            if let json = response.value as? [String:Any] {
-                
-                if json["status"] as? String == "Success" {
-                    
-                    self.arrMessages = (json["data"] as? [String:Any])?["messages"] as? [[String:Any]]
-                    self.filteredMessages.removeAll()
-                    
-                    if let messages = self.arrMessages {
-                        for message in messages {
-
-                            if let index = self.filteredMessages.firstIndex(where: {
-                                self.convertDateString($0["created_at"] as? String ?? "") ==
-                                self.convertDateString(message["created_at"] as? String ?? "")
-                            }) {
-
-                                if var existingMessages = self.filteredMessages[index]["messages"] as? [[String: Any]] {
-
-                                    existingMessages.append(message)
-                                    self.filteredMessages[index]["messages"] = existingMessages
-                                }
-                            } else {
-
-                                self.filteredMessages.append([
-                                    "created_at": message["created_at"] as? String ?? "",
-                                    "messages": [message]
-                                ])
-                            }
-                        }
+        if let messages = self.arrMessages {
+            for message in messages {
+                // Grouping messages by date for the section headers
+                if let index = self.filteredMessages.firstIndex(where: {
+                    self.convertDateString($0["created_at"] as? String ?? "") ==
+                    self.convertDateString(message["created_at"] as? String ?? "")
+                }) {
+                    if var existingMessages = self.filteredMessages[index]["messages"] as? [[String: Any]] {
+                        existingMessages.append(message)
+                        self.filteredMessages[index]["messages"] = existingMessages
                     }
-
-                    
-                    self.tblList.reloadData()
-                    
-                    if self.isCallFirstTime {
-                        self.scrollToBottom()
-                        
-
-                        ///to show message limit bottom sheet
-                        let receivedMessages = self.arrMessages?.filter( { $0["sender_id"] as? Int == Int(self.strReceiverId) } )
-                        let senderMessages = self.arrMessages?.filter( { $0["sender_id"] as? Int == userModel.data?.id ?? 0 } )
-                        
-                        if receivedMessages?.count ?? 0 < 1 && senderMessages?.count ?? 0 >= 2 {
-                            
-                            self.txtMessage.resignFirstResponder()
-                            self.bottomSheetBottomConstraint.constant = -182.5
-                            UIView.animate(withDuration: 0.3) {
-                                self.bottomSheetBottomConstraint.constant = 0
-                                self.view.layoutIfNeeded()
-                            }
-                        }
-
-                    } else {
-                        
-                        if self.intMsgCount != self.arrMessages?.count {
-                            self.scrollToBottom()
-                        }
-                    }
-                    
-                    self.intMsgCount = self.arrMessages?.count ?? 0
-                    self.isCallFirstTime = false
+                } else {
+                    self.filteredMessages.append([
+                        "created_at": message["created_at"] as? String ?? "",
+                        "messages": [message]
+                    ])
                 }
             }
+        }
+        
+        self.tblList.reloadData()
+        
+        // Auto-scroll logic and handling message limit bubble
+        if self.isCallFirstTime {
+            self.scrollToBottom()
+            
+            let userModel = Login_LocalDB.getLoginUserModel()
+            let receivedMessages = self.arrMessages?.filter( { $0["sender_id"] as? Int == Int(self.strReceiverId) } )
+            let senderMessages = self.arrMessages?.filter( { $0["sender_id"] as? Int == userModel.data?.id ?? 0 } )
+            
+            if receivedMessages?.count ?? 0 < 1 && senderMessages?.count ?? 0 >= 2 {
+                self.txtMessage.resignFirstResponder()
+                self.bottomSheetBottomConstraint.constant = -182.5
+                UIView.animate(withDuration: 0.3) {
+                    self.bottomSheetBottomConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                }
+            }
+        } else {
+            if self.intMsgCount != self.arrMessages?.count {
+                self.scrollToBottom()
+            }
+        }
+        
+        self.intMsgCount = self.arrMessages?.count ?? 0
+        self.isCallFirstTime = false
+    }
+    func listenForMessages() {
+        let db = Firestore.firestore()
+      
+        messageListener = db.collection("rooms").document(strRoomId).collection("messages")
+            .order(by: "created_at", descending: false)
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Error listening for messages: \(error)")
+                    return
+                }
+                guard let snapshot = querySnapshot else { return }
+                
+                if snapshot.isEmpty && !UserDefaults.standard.bool(forKey: "migrated_room_\(self.strRoomId)") {
+                    self.migrateExistingMessagesToFirestore()
+                }
+
+                var newMessages: [[String: Any]] = []
+                for document in snapshot.documents {
+                    newMessages.append(document.data())
+                }
+                self.arrMessages = newMessages
+                self.processMessages()
+            }
+    }
+    func fetchOtherUserStatus(completion: @escaping (Bool) -> Void){
+        let db = Firestore.firestore()
+        db.collection("users").document(self.strReceiverId).collection("conversations").document(strRoomId)
+            .getDocument { [weak self] document, error in
+                guard let self = self else { return }
+                if let document = document, document.exists,
+                   let data = document.data(),
+                   let activeUsers = data["active_users"] as? [String: Any] {
+
+                    let isRecipientActive = activeUsers[self.strReceiverId] as? Bool ?? false
+                    completion(isRecipientActive)
+                               }
+                else{
+                    completion(false)
+                }
+            }
+    }
+    @objc func markConversationAsRead() {
+        let userModel = Login_LocalDB.getLoginUserModel()
+        let myId = "\(userModel.data?.id ?? 0)"
+        let db = Firestore.firestore()
+       let database=db.collection("users").document(myId).collection("conversations").document(strRoomId)
+    
+        
+            database.updateData([
+            "count_unred_count": 0,
+            "active_users.\(myId)": true
+            
+        ]) { error in
+            if let error = error {
+                print("Error marking conversation as read: \(error)")
+            }
+        }
+    }
+    @objc func markuserOffline(){
+        let userModel = Login_LocalDB.getLoginUserModel()
+        let myId = "\(userModel.data?.id ?? 0)"
+        let db = Firestore.firestore()
+        db.collection("users").document(myId).collection("conversations").document(strRoomId).updateData([
+            "active_users.\(myId)": false
+        ]){
+            error in if let error = error {
+                print("Error marking user offline: \(error)")
+            }
+        }
+    }
+
+    func updateFirestoreConversation(text: String, timestamp: String, serverTimestamp: Any,isOnline:Bool) {
+        let db = Firestore.firestore()
+        let myUserModel = Login_LocalDB.getLoginUserModel()
+        let myId = "\(myUserModel.data?.id ?? 0)"
+        let opponentId = self.strReceiverId
+
+        // 1. Update My Conversation (Always set unread to 0 for myself)
+        let myUpdate: [String: Any] = [
+            "last_msg_info": ["message": text, "created_at": timestamp],
+            "timestamp": serverTimestamp,
+            "count_unred_count": 0
+        ]
+        db.collection("users").document(myId).collection("conversations").document(strRoomId).updateData(myUpdate)
+    
+        // 2. Update Their Conversation
+        let theirConvRef = db.collection("users").document(opponentId).collection("conversations").document(strRoomId)
+        
+
+        var unreadUpdate: Any = isOnline ? 0 : FieldValue.increment(Int64(1))
+
+            let theirUpdate: [String: Any] = [
+                "last_msg_info": ["message": text, "created_at": timestamp],
+                "timestamp": serverTimestamp,
+                "count_unred_count": unreadUpdate
+            ]
+            
+            theirConvRef.updateData(theirUpdate) { error in
+                if let error = error {
+                    print("Error updating opponent's conversation: \(error)")
+                }
+            }
+        
+    }
+
+    func getMessagesAPI() {
+        if NetworkReachabilityManager()!.isReachable == false { return }
+        
+        // If we don't have a legacy ID, we can't call the fallback API
+        if strLegacyRoomId.isEmpty || strLegacyRoomId == "no" { return }
+        
+        if isCallFirstTime { AppHelper.showLinearProgress() }
+        let userModel = Login_LocalDB.getLoginUserModel()
+        let headers:HTTPHeaders = ["Accept":"application/json", "Authorization":userModel.data?.api_token ?? ""]
+        AF.request("\(get_chat_msg)?room%20id=\(strLegacyRoomId)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let json = response.value as? [String:Any], json["status"] as? String == "Success" {
+                self.arrMessages = (json["data"] as? [String:Any])?["messages"] as? [[String:Any]]
+                self.processMessages()
+            }
             AppHelper.hideLinearProgress()
+        }
+    }
+
+    func migrateExistingMessagesToFirestore() {
+        if NetworkReachabilityManager()!.isReachable == false { return }
+        
+        // If we don't have a legacy ID, we can't migrate from backend
+        if strLegacyRoomId.isEmpty || strLegacyRoomId == "no" { return }
+
+        // Flag as migrated immediately to prevent multiple sync attempts
+        UserDefaults.standard.set(true, forKey: "migrated_room_\(self.strRoomId)")
+
+        let userModel = Login_LocalDB.getLoginUserModel()
+        let headers:HTTPHeaders = ["Accept":"application/json", "Authorization":userModel.data?.api_token ?? ""]
+        let db = Firestore.firestore()
+
+        AF.request("\(get_chat_msg)?room%20id=\(strLegacyRoomId)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let json = response.value as? [String:Any], json["status"] as? String == "Success" {
+                let messages = (json["data"] as? [String:Any])?["messages"] as? [[String:Any]] ?? []
+                
+                let batch = db.batch()
+                let messagesRef = db.collection("rooms").document(self.strRoomId).collection("messages")
+                
+                for msg in messages {
+                    // Create a deterministic ID based on created_at or use addDocument (batch set is better if we have IDs)
+                    // Since API doesn't give document IDs, we'll just use the messages collection add logic
+                    // But batch requires DocRefs. We can generate them.
+                    let docRef = messagesRef.document()
+                    batch.setData(msg, forDocument: docRef)
+                }
+                
+                batch.commit { error in
+                    if let error = error {
+                        print("Error migrating messages: \(error)")
+                        UserDefaults.standard.set(false, forKey: "migrated_room_\(self.strRoomId)") // Reset on failure
+                    }
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: "migrated_room_\(self.strRoomId)")
+            }
         }
     }
     func getUserDetailsAPI() {
@@ -1046,6 +1189,17 @@ class OnetoOneChatVC: UIViewController {
             
             let userListModel_ = UserModel(JSON: dicsResponseFinal as! [String : Any])!
             self.dictOpponentUserData = userListModel_.data
+            
+            // Backup: If strLegacyRoomId is missing, try to get it from the user details
+            if (self.strLegacyRoomId.isEmpty || self.strLegacyRoomId == "no"), 
+               let roomInfo = userListModel_.data?.room_info.first {
+                if let legacyId = roomInfo["id"] as? Int {
+                    self.strLegacyRoomId = "\(legacyId)"
+                } else if let legacyId = roomInfo["id"] as? String {
+                    self.strLegacyRoomId = legacyId
+                }
+            }
+
             if userListModel_.code == 200{
                 
                 //--
@@ -1429,11 +1583,10 @@ extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
                         cell.lblTitle.text = msg
                         
                         
-                        if dict?["created_at"] as? String != nil {
-                            //cell.lblTime.text = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "h:mm a", date: dict?["created_at"] as? String ?? "")
-                            
-//                            cell.lblTime.text = setDate(strDate:dict?["created_at"] as? String ?? "")
-//                            cell.lblTime.text = timeAgoSinceDate(dict?["created_at"] as? String ?? "")
+                        if let createdAt = dict?["created_at"] as? String {
+                            cell.lblTime.text = self.setDate(strDate: createdAt)
+                            cell.lblTime.isHidden = false
+                        } else {
                             cell.lblTime.isHidden = true
                         }
                         
@@ -1456,11 +1609,10 @@ extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
                         
                         cell.lblTitle.text = msg
                         
-                        if dict?["created_at"] as? String != nil {
-                            //cell.lblTime.text = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "h:mm a", date: dict?["created_at"] as? String ?? "")
-                            
-//                            cell.lblTime.text = setDate(strDate:dict?["created_at"] as? String ?? "")
-//                            cell.lblTime.text = timeAgoSinceDate(dict?["created_at"] as? String ?? "")
+                        if let createdAt = dict?["created_at"] as? String {
+                            cell.lblTime.text = self.setDate(strDate: createdAt)
+                            cell.lblTime.isHidden = false
+                        } else {
                             cell.lblTime.isHidden = true
                         }
                         
@@ -1485,11 +1637,10 @@ extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
                         cell.lblTitle.text = msg
                         //cell.lblName.text = strHeader
                         
-                        if dict?["created_at"] as? String != nil {
-                            //cell.lblTime.text = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "h:mm a", date: dict?["created_at"] as? String ?? "")
-                            
-//                            cell.lblTime.text = setDate(strDate:dict?["created_at"] as? String ?? "")
-//                            cell.lblTime.text = timeAgoSinceDate(dict?["created_at"] as? String ?? "")
+                        if let createdAt = dict?["created_at"] as? String {
+                            cell.lblTime.text = self.setDate(strDate: createdAt)
+                            cell.lblTime.isHidden = false
+                        } else {
                             cell.lblTime.isHidden = true
                         }
                         
@@ -1507,11 +1658,10 @@ extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
                         //cell.lblName.text = strHeader
                         
                         
-                        if dict?["created_at"] as? String != nil {
-                            //cell.lblTime.text = Helper.shared.changeDateFormat(fromFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ", toFormat: "h:mm a", date: dict?["created_at"] as? String ?? "")
-                            
-//                            cell.lblTime.text = setDate(strDate:dict?["created_at"] as? String ?? "")
-//                            cell.lblTime.text = timeAgoSinceDate(dict?["created_at"] as? String ?? "")
+                        if let createdAt = dict?["created_at"] as? String {
+                            cell.lblTime.text = self.setDate(strDate: createdAt)
+                            cell.lblTime.isHidden = false
+                        } else {
                             cell.lblTime.isHidden = true
                         }
                         

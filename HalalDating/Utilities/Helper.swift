@@ -186,14 +186,27 @@ class Helper: NSObject {
 //    }
     
     func timeAgoSinceDate(_ dateString: String) -> String {
-        // Define the date formatter to handle the full date format including microseconds and "Z"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Parse as UTC
+        let formats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSZ",
+            "yyyy-MM-dd'T'HH:mm:ssZ",
+            "yyyy-MM-dd HH:mm:ss"
+        ]
         
-        // Convert the string to a Date object
-        guard let date = dateFormatter.date(from: dateString) else { return "Invalid Date" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        var parsedDate: Date?
+        for format in formats {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: dateString) {
+                parsedDate = date
+                break
+            }
+        }
+        
+        guard let date = parsedDate else { return "" }
         
         let now = Date()
         let calendar = Calendar.current
@@ -206,7 +219,7 @@ class Helper: NSObject {
         // Get the difference in components between the current time and the input date
         let components = calendar.dateComponents([.minute, .hour, .day, .month, .year], from: date, to: now)
         
-        // Check if the date is later than yesterday
+        // Check if the date is earlier than today
         if let day = components.day, day >= 1 {
             let monthName = DateFormatter().monthSymbols[calendar.component(.month, from: date) - 1]
             let year = calendar.component(.year, from: date)
@@ -223,7 +236,7 @@ class Helper: NSObject {
         } else if let day = components.day, day == 1 {
             return "Yesterday"
         } else {
-            return "Unknown"
+            return ""
         }
     }
 

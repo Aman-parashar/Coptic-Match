@@ -13,6 +13,7 @@ import UIKit
 import Quickblox
 import Alamofire
 import StoreKit
+import FirebaseFirestore
 
 class MatchVC: UIViewController {
 
@@ -287,9 +288,57 @@ class MatchVC: UIViewController {
                 
                 if json["status"] as? String == "Success" {
                     
+                    let myUserModel = Login_LocalDB.getLoginUserModel()
+                    let senderId = myUserModel.data?.id ?? 0
+                    let receiverId = Int(self.strReceiverId) ?? 0
                     
-                    self.strRoomId = (json["data"] as? [String:Any])?["room_id"] as? String ?? ""
+                    // Always use our standard Firestore roomId format
+                    self.strRoomId = AppHelper.getRoomId(id1: senderId, id2: receiverId)
                     
+                    // -- New Firestore Conversation Initialization --
+                    let db = Firestore.firestore()
+                    let myId = "\(myUserModel.data?.id ?? 0)"
+                    let opponentId = self.strReceiverId
+                    let roomId = self.strRoomId
+                    let timestamp = ISO8601DateFormatter().string(from: Date())
+                    
+                    // Date for sorting
+                    let serverTimestamp = FieldValue.serverTimestamp()
+                    
+                    // 1. Create entry for ME (I see the opponent)
+                    let myData: [String: Any] = [
+                        "room_id": roomId,
+                        "reciver_id": Int(opponentId) ?? 0,
+                        "reciver_info": [
+                            "name": self.userModel.name ?? "",
+                            "selfie": self.userModel.user_image.first?.image ?? ""
+                        ],
+                        "last_msg_info": [
+                            "message": "You matched! Say hi 👋",
+                            "created_at": timestamp
+                        ],
+                        "count_unred_count": 0,
+                        "timestamp": serverTimestamp
+                    ]
+                    db.collection("users").document(myId).collection("conversations").document(roomId).setData(myData, merge: true)
+                    
+                    // 2. Create entry for THEM (They see me)
+                    let theirData: [String: Any] = [
+                        "room_id": roomId,
+                        "reciver_id": Int(myId) ?? 0,
+                        "reciver_info": [
+                            "name": myUserModel.data?.name ?? "",
+                            "selfie": myUserModel.data?.user_image.first?.image ?? ""
+                        ],
+                        "last_msg_info": [
+                            "message": "You matched! Say hi 👋",
+                            "created_at": timestamp
+                        ],
+                        "count_unred_count": 1, // They get 1 unread notification
+                        "timestamp": serverTimestamp
+                    ]
+                    db.collection("users").document(opponentId).collection("conversations").document(roomId).setData(theirData, merge: true)
+                    // ------------------------------------------------
                 }
             }
             

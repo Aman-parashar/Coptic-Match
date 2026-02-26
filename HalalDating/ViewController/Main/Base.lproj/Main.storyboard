@@ -930,7 +930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqb-kX-HtC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="960" y="52.789699570815451"/>
+            <point key="canvasLocation" x="959.5419847328244" y="52.112676056338032"/>
         </scene>
         <!--Mobile VerificationVC-->
         <scene sceneID="cMk-fa-5tg">

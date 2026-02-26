@@ -35,6 +35,7 @@ target 'HalalDating' do
   pod 'Firebase/Crashlytics'
   pod 'GoogleMaps'
   pod 'SwiftyStoreKit'
+  pod 'FirebaseFirestore'
   
   
   post_install do |installer|

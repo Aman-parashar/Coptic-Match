@@ -388,8 +388,9 @@ class MainVC: UIViewController {
                             
                             //AppHelper.returnTopNavigationController().view.makeToast(dicsResponseFinal?.object(forKey: "message") as? String ?? "")
                         } else {
-                            if let userListModel_ = UserModel(JSON: dicsResponseFinal as! [String : Any])!.toJSONString() {
-                                Login_LocalDB.saveLoginInfo(strData: userListModel_)
+                            if let userListModelString = UserModel(JSON: dicsResponseFinal as! [String : Any])?.toJSONString() {
+                                Login_LocalDB.saveLoginInfo(strData: userListModelString)
+                                AppHelper.syncUserToFirestore(userModel: self.userListModel_!)
                             }
                             //self.signUpInQB()
                             //EDIT
