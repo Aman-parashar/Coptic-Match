@@ -30,7 +30,10 @@ class ReplayMsgTblCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUI() {
+    func setUI(isImage: Bool = false) {
+        if isImage {
+            bgView.backgroundColor = .clear
+        }
         DispatchQueue.main.async {
             self.bgView.roundCorners(corners: [.bottomLeft, .bottomRight, .topRight], radius: 10)
         }

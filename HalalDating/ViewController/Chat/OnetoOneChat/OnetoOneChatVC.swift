@@ -278,11 +278,64 @@ class OnetoOneChatVC: UIViewController {
         
         txtMessage.delegate = self
         
+        setupAttachmentButton()
+
         let nib = UINib(nibName: "ChatHeaderView", bundle: nil)
         tblList.register(nib, forHeaderFooterViewReuseIdentifier: "ChatHeaderView")
+    }
+    
+    func setupAttachmentButton() {
+        let btnAttachment = UIButton(type: .custom)
+        btnAttachment.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+        btnAttachment.tintColor = .gray
+        btnAttachment.translatesAutoresizingMaskIntoConstraints = false
+        viewBottom.addSubview(btnAttachment)
         
-        //EDIT
-        //self.getUserDetailsAPI1(qbId: "\(self.receiverId)")
+        NSLayoutConstraint.activate([
+            btnAttachment.leadingAnchor.constraint(equalTo: viewBottom.leadingAnchor, constant: 10),
+            btnAttachment.centerYAnchor.constraint(equalTo: txtMessage.centerYAnchor),
+            btnAttachment.widthAnchor.constraint(equalToConstant: 30),
+            btnAttachment.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        // Adjust textfield container leading constraint
+        if let textFieldContainer = txtMessage.superview {
+            for constraint in viewBottom.constraints {
+                if constraint.firstItem as? UIView == textFieldContainer && constraint.firstAttribute == .leading {
+                    constraint.constant = 50
+                }
+            }
+        }
+        
+        btnAttachment.addTarget(self, action: #selector(onTapAttachment), for: .touchUpInside)
+    }
+
+    @objc func onTapAttachment() {
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallary()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .camera
+            self.present(picker, animated: true, completion: nil)
+        }
+    }
+
+    func openGallary() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        self.present(picker, animated: true, completion: nil)
     }
     
     func scrollToBottom(){
@@ -1511,6 +1564,46 @@ class OnetoOneChatVC: UIViewController {
         vc.strUserId = strReceiverId
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func addImageToCell(cell: UITableViewCell, imageUrl: String, isOutgoing: Bool) {
+        let tag = 999
+        
+        let bubbleView: UIView
+        let label: UILabel
+        if let sendCell = cell as? SendMsgTblCell {
+            bubbleView = sendCell.bgView
+            label = sendCell.lblTitle
+        } else if let replayCell = cell as? ReplayMsgTblCell {
+            bubbleView = replayCell.bgView
+            label = replayCell.lblTitle
+        } else {
+            return
+        }
+        
+        bubbleView.viewWithTag(tag)?.removeFromSuperview()
+        label.isHidden = true
+        
+        let imageView = UIImageView()
+        imageView.tag = tag
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        bubbleView.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: 5),
+            imageView.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -5),
+            imageView.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: 10),
+            imageView.trailingAnchor.constraint(equalTo: bubbleView.trailingAnchor, constant: -10),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+       
+        
+        imageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "placeholder"))
+    }
 }
 
 extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
@@ -1556,128 +1649,68 @@ extension OnetoOneChatVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == tblList{
-            
-            if filteredMessages.count == 0 {
-                return UITableViewCell()
-            }
+        if tableView == tblList {
+            if filteredMessages.count == 0 { return UITableViewCell() }
             
             let userModel = Login_LocalDB.getLoginUserModel()
-            
-//            let dict = arrMessages?[indexPath.row]
             let dict = (filteredMessages[indexPath.section]["messages"] as? [[String: Any]])?[indexPath.row]
+            let msg = dict?["message"] as? String ?? ""
+            let isImage = (dict?["message_type"] as? String == "image") || msg.contains("s3.amazonaws.com")
+            let isOutgoing = dict?["sender_id"] as? Int == userModel.data?.id
             
-            if dict?["sender_id"] as? Int == userModel.data?.id {
+            if isOutgoing {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SendMsgTblCell") as! SendMsgTblCell
+                cell.selectionStyle = .none
                 
-                if let msg = dict?["message"] as? String {
+                if isImage {
+                    self.addImageToCell(cell: cell, imageUrl: msg, isOutgoing: true)
+                } else {
+                    let tag = 999
+                    cell.bgView.viewWithTag(tag)?.removeFromSuperview()
+                    cell.lblTitle.isHidden = false
+                    cell.lblTitle.text = msg
                     
                     if msg.containsOnlyEmoji {
-                        
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "SendMsgTblCell") as! SendMsgTblCell
-                        //print("Message:\(msg)")
-                        cell.selectionStyle = .none
-                        
-                        cell.imgBubble.image = UIImage(named: "outgoing-message-bubble")?
-                            .resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                        cell.imgBubble.image = UIImage(named: "outgoing-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(.alwaysTemplate)
                         cell.imgBubble.tintColor = UIColor(hex: "#266FA8")
-                        cell.lblTitle.text = msg
-                        
-                        
-                        if let createdAt = dict?["created_at"] as? String {
-                            cell.lblTime.text = self.setDate(strDate: createdAt)
-                            cell.lblTime.isHidden = false
-                        } else {
-                            cell.lblTime.isHidden = true
-                        }
-                        
-                        
-                        cell.setUI()
-                        
-                        
-                        return cell
                     } else {
-                        
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "SendMsgTblCell") as! SendMsgTblCell
-                        //print("Message:\(msg)")
-                        cell.selectionStyle = .none
-                        
-                        cell.imgBubble.image = UIImage(named: "outgoing-message-bubble")?
-                            .resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                        cell.imgBubble.image = UIImage(named: "outgoing-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(.alwaysTemplate)
                         cell.imgBubble.tintColor = UIColor(hex: "#266FA8")
-                        
-                        //print("Message:\(msg)")
-                        
-                        cell.lblTitle.text = msg
-                        
-                        if let createdAt = dict?["created_at"] as? String {
-                            cell.lblTime.text = self.setDate(strDate: createdAt)
-                            cell.lblTime.isHidden = false
-                        } else {
-                            cell.lblTime.isHidden = true
-                        }
-                        
-                        cell.setUI()
-                        
-                        return cell
                     }
-                    
-                    
                 }
+                
+                if let createdAt = dict?["created_at"] as? String {
+                    cell.lblTime.text = self.setDate(strDate: createdAt)
+                    cell.lblTime.isHidden = false
+                } else {
+                    cell.lblTime.isHidden = true
+                }
+                cell.setUI(isImage: isImage)
+                return cell
             } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ReplayMsgTblCell", for: indexPath) as! ReplayMsgTblCell
+                cell.selectionStyle = .none
                 
-                if let msg = dict?["message"] as? String {
+                if isImage {
+                    self.addImageToCell(cell: cell, imageUrl: msg, isOutgoing: false)
+                } else {
+                    let tag = 999
+                    cell.bgView.viewWithTag(tag)?.removeFromSuperview()
+                    cell.lblTitle.isHidden = false
+                    cell.lblTitle.text = msg
                     
-                    if msg.containsOnlyEmoji {
-                        
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "ReplayMsgTblCell", for: indexPath) as! ReplayMsgTblCell
-                        cell.selectionStyle = .none
-                        
-                        cell.imgBubble.image = UIImage(named: "incoming-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20))
-                        
-                        cell.lblTitle.text = msg
-                        //cell.lblName.text = strHeader
-                        
-                        if let createdAt = dict?["created_at"] as? String {
-                            cell.lblTime.text = self.setDate(strDate: createdAt)
-                            cell.lblTime.isHidden = false
-                        } else {
-                            cell.lblTime.isHidden = true
-                        }
-                        
-                        cell.setUI()
-                        
-                        return cell
-                    } else {
-                        
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "ReplayMsgTblCell", for: indexPath) as! ReplayMsgTblCell
-                        cell.selectionStyle = .none
-                        
-                        cell.imgBubble.image = UIImage(named: "incoming-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20))
-                        
-                        cell.lblTitle.text = msg
-                        //cell.lblName.text = strHeader
-                        
-                        
-                        if let createdAt = dict?["created_at"] as? String {
-                            cell.lblTime.text = self.setDate(strDate: createdAt)
-                            cell.lblTime.isHidden = false
-                        } else {
-                            cell.lblTime.isHidden = true
-                        }
-                        
-                        cell.setUI()
-                        
-                        return cell
-                    }
-                    
-                    
+                    cell.imgBubble.image = UIImage(named: "incoming-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20))
                 }
                 
+                if let createdAt = dict?["created_at"] as? String {
+                    cell.lblTime.text = self.setDate(strDate: createdAt)
+                    cell.lblTime.isHidden = false
+                } else {
+                    cell.lblTime.isHidden = true
+                }
+                cell.setUI(isImage: isImage)
+                return cell
             }
-            
-            
-            
-            return UITableViewCell()
         } else if tableView == tblList_reportPopup {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReportCell", for: indexPath) as! ReportCell
             cell.selectionStyle = .none
@@ -1951,5 +1984,195 @@ extension UITableView {
     
     func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
         return indexPath.section < self.numberOfSections && indexPath.row < self.numberOfRows(inSection: indexPath.section)
+    }
+}
+
+extension OnetoOneChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            dismiss(animated: true) {
+                self.uploadAndSendImage(image: image)
+            }
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func uploadAndSendImage(image: UIImage) {
+        AppHelper.showLinearProgress()
+        let fileName = "\(UUID().uuidString).jpg"
+        
+        S3UploadManager.shared.uploadImage(image: image, fileName: fileName) { [weak self] (publicUrl: String?, error: Error?) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                AppHelper.hideLinearProgress()
+                self.view.makeToast("Failed to upload image: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let publicUrl = publicUrl else {
+                AppHelper.hideLinearProgress()
+                return
+            }
+            
+            // Send to Firebase
+            let userModel = Login_LocalDB.getLoginUserModel()
+            let senderId = userModel.data?.id ?? 0
+            let receiverId = Int(self.strReceiverId) ?? 0
+            
+            S3UploadManager.shared.saveImageToFirebase(imageUrl: publicUrl, roomId: self.strRoomId, senderId: senderId, receiverId: receiverId) { (error: Error?) in
+                AppHelper.hideLinearProgress()
+                if let error = error {
+                    self.view.makeToast("Failed to save message: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+}
+
+class S3UploadManager {
+    static let shared = S3UploadManager()
+    
+    private init() {}
+    
+    func uploadImage(image: UIImage, fileName: String, completion: @escaping (String?, Error?) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(nil, NSError(domain: "S3Upload", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data"]))
+            return
+        }
+        
+        let contentType = "image/jpeg"
+        
+        // 1. Get Presigned URL
+        self.getPresignedURL(fileName: fileName, contentType: contentType) { [weak self] (uploadUrl, publicUrl, error) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let uploadUrl = uploadUrl, let publicUrl = publicUrl else {
+                completion(nil, NSError(domain: "S3Upload", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to get presigned URL"]))
+                return
+            }
+            
+            // 2. Upload to S3
+            self.uploadToS3(url: uploadUrl, imageData: imageData, contentType: contentType) { (success, error) in
+                if success {
+                    print(publicUrl,"publicUrl")
+                    completion(publicUrl, nil)
+                } else {
+                    print(error,"errorerror")
+                    completion(nil, error)
+                }
+            }
+        }
+    }
+    
+    private func getPresignedURL(fileName: String, contentType: String, completion: @escaping (String?, String?, Error?) -> Void) {
+        let url = "https://coptic-match.com/stage/api/generate-upload-url"
+        let parameters: [String: Any] = [
+            "file_name": fileName,
+            "content_type": contentType
+        ]
+        
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            print(response,"responseeeeee")
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                   let uploadUrl = json["upload_url"] as? String {
+                    // Deriving public URL by removing query parameters
+                    let publicUrl = uploadUrl.components(separatedBy: "?").first ?? ""
+                    completion(uploadUrl, publicUrl, nil)
+                } else {
+                    completion(nil, nil, NSError(domain: "S3Upload", code: -3, userInfo: [NSLocalizedDescriptionKey: "Invalid response from presigned URL API. Missing 'upload_url'."]))
+                }
+            case .failure(let error):
+                completion(nil, nil, error)
+            }
+        }
+    }
+    
+    private func uploadToS3(url: String, imageData: Data, contentType: String, completion: @escaping (Bool, Error?) -> Void) {
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PUT"
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        // Extract x-amz-acl from query params if present and set it as a header
+        // AWS Presigned URLs with x-amz-acl in the query string usually require it as a header too.
+        if let urlComponents = URLComponents(string: url),
+           let acl = urlComponents.queryItems?.first(where: { $0.name == "x-amz-acl" })?.value {
+            request.setValue(acl, forHTTPHeaderField: "x-amz-acl")
+        }
+        
+        request.httpBody = imageData
+        
+        AF.request(request).validate().response { response in
+            if let error = response.error {
+                completion(false, error)
+            } else {
+                print("Successfully uploaded to S3", response)
+                completion(true, nil)
+            }
+        }
+    }
+    
+    func saveImageToFirebase(imageUrl: String, roomId: String, senderId: Int, receiverId: Int, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+        let serverTimestamp = FieldValue.serverTimestamp()
+        
+        let messageData: [String: Any] = [
+            "sender_id": senderId,
+            "reciver_id": receiverId,
+            "message": imageUrl,
+            "message_type": "image",
+            "created_at": timestamp
+        ]
+        
+        // Write to Room Messages
+        db.collection("rooms").document(roomId).collection("messages").addDocument(data: messageData) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            // Update Conversation Metadata
+            self.updateFirestoreConversation(roomId: roomId, text: "Sent an image", timestamp: timestamp, serverTimestamp: serverTimestamp, senderId: senderId, receiverId: receiverId)
+            completion(nil)
+        }
+    }
+    
+    private func updateFirestoreConversation(roomId: String, text: String, timestamp: String, serverTimestamp: Any, senderId: Int, receiverId: Int) {
+        let db = Firestore.firestore()
+        let myId = "\(senderId)"
+        let opponentId = "\(receiverId)"
+        
+        // 1. Update My Conversation
+        let myUpdate: [String: Any] = [
+            "last_msg_info": ["message": text, "created_at": timestamp],
+            "timestamp": serverTimestamp,
+            "count_unred_count": 0
+        ]
+        db.collection("users").document(myId).collection("conversations").document(roomId).updateData(myUpdate)
+        
+        // 2. Update Their Conversation
+        let theirConvRef = db.collection("users").document(opponentId).collection("conversations").document(roomId)
+        
+        // We probably need to check if they are online to increment unread count, but for simplicity let's just increment
+        let theirUpdate: [String: Any] = [
+            "last_msg_info": ["message": text, "created_at": timestamp],
+            "timestamp": serverTimestamp,
+            "count_unred_count": FieldValue.increment(Int64(1))
+        ]
+        
+        theirConvRef.updateData(theirUpdate)
     }
 }

@@ -29,8 +29,12 @@ class SendMsgTblCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUI() {
-        bgView.backgroundColor = UIColor(hex: "#266FA8")
+    func setUI(isImage: Bool = false) {
+        if !isImage {
+             bgView.backgroundColor = UIColor(hex: "#266FA8")
+         } else {
+             bgView.backgroundColor = .clear
+         }
         DispatchQueue.main.async {
             self.bgView.roundCorners(corners: [.bottomLeft, .bottomRight, .topLeft], radius: 10)
         }
